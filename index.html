@@ -1,18 +1,163 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <title>Somauma | Procedimentos</title>
-        
-        <style>
-            :root {
-                --colorBG1: #bfc9b1;
-            }
-            
-            body {
-                background-color: var(--colorBG1);
-            }
-        </style>
-    </head>
-    <body></body>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Área interna</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Script do Google Identity Services -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f5f5;
+    }
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    }
+    h1, h2 {
+      margin-top: 0;
+    }
+    .hidden {
+      display: none;
+    }
+    .error {
+      color: #b00020;
+      margin-top: 12px;
+    }
+    .user-info {
+      margin-bottom: 16px;
+      padding: 12px;
+      border-radius: 8px;
+      background: #f0f4ff;
+      font-size: 14px;
+    }
+    code {
+      background: #eee;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Área de login -->
+    <div id="login-section">
+      <h1>Login com Google</h1>
+      <p>Faça login com o seu e-mail corporativo para acessar o conteúdo.</p>
+
+      <!-- Configuração do botão / One Tap -->
+      <div id="g_id_onload"
+        data-client_id="1015680568136-svgn7b59p1j7um8naqchs1r1eh99s02l.apps.googleusercontent.com"
+        data-callback="handleCredentialResponse"
+        data-auto_select="false"
+        data-itp_support="true">
+      </div>
+
+      <!-- Botão padrão de Sign In -->
+      <div class="g_id_signin"
+        data-type="standard"
+        data-size="large"
+        data-theme="outline"
+        data-text="signin_with"
+        data-shape="rectangular"
+        data-logo_alignment="left">
+      </div>
+
+      <div id="login-error" class="error hidden"></div>
+    </div>
+
+    <!-- Área protegida (começa escondida) -->
+    <div id="protected-section" class="hidden">
+      <h2>Área interna</h2>
+      <div class="user-info" id="user-info"></div>
+
+      <p>
+        Aqui vai o <strong>conteúdo protegido</strong> do seu site:
+      </p>
+      <ul>
+        <li>Links internos</li>
+        <li>Documentação da empresa</li>
+        <li>Informações de projetos, etc.</li>
+      </ul>
+
+      <button id="logout-btn">Sair</button>
+    </div>
+  </div>
+
+  <script>
+    const ALLOWED_DOMAIN = "suaempresa.com"; // troque pelo domínio do seu Workspace
+
+    // Decodifica o payload de um JWT (ID token) sem verificar assinatura
+    function parseJwt (token) {
+      const parts = token.split('.');
+      if (parts.length !== 3) return null;
+      const payload = parts[1]
+        .replace(/-/g, '+')
+        .replace(/_/g, '/');
+      const decoded = atob(payload);
+      try {
+        return JSON.parse(decoded);
+      } catch (e) {
+        console.error("Erro ao parsear token:", e);
+        return null;
+      }
+    }
+
+    function handleCredentialResponse(response) {
+      const token = response.credential;
+      const data = parseJwt(token);
+
+      if (!data) {
+        showError("Não foi possível validar o login. Tente novamente.");
+        return;
+      }
+
+      const email = data.email;
+      const hd = data.hd; // Hosted domain, quando configurado no Workspace
+      const domainFromEmail = email.split("@")[1];
+
+      // Checa domínio permitido
+      if (domainFromEmail !== ALLOWED_DOMAIN && hd !== ALLOWED_DOMAIN) {
+        showError("Este site é apenas para usuários do domínio " + ALLOWED_DOMAIN + ".");
+        return;
+      }
+
+      // Se passou na verificação de domínio, exibe conteúdo protegido
+      showProtectedContent(email);
+    }
+
+    function showError(msg) {
+      const errorDiv = document.getElementById("login-error");
+      errorDiv.textContent = msg;
+      errorDiv.classList.remove("hidden");
+    }
+
+    function showProtectedContent(email) {
+      const loginSection = document.getElementById("login-section");
+      const protectedSection = document.getElementById("protected-section");
+      const userInfo = document.getElementById("user-info");
+
+      loginSection.classList.add("hidden");
+      protectedSection.classList.remove("hidden");
+
+      userInfo.textContent = "Logado como: " + email;
+    }
+
+    // “Logout” simples: limpa UI e recarrega a página
+    document.getElementById("logout-btn").addEventListener("click", () => {
+      // Opcional: revogar sessão Google
+      google.accounts.id.disableAutoSelect();
+      window.location.reload();
+    });
+  </script>
+</body>
 </html>
