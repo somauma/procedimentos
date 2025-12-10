@@ -455,4 +455,34 @@
           const card = document.createElement("div");
           card.className = "procedure-card";
 
-          card.inn
+          card.innerHTML = `
+            <img
+              src="${p.thumbnail}"
+              alt="Thumbnail do procedimento"
+              class="procedure-thumb"
+              onerror="this.style.display='none';"
+            />
+            <div class="procedure-meta">
+              <span class="procedure-dept">${p.department}</span>
+              <span>${formatDate(p.date)}</span>
+            </div>
+            <h3 class="procedure-title">${p.title}</h3>
+            <p class="procedure-summary">${p.summary}</p>
+            <div class="procedure-actions">
+              <a href="${p.fileUrl}" target="_blank" rel="noopener noreferrer">
+                <button class="btn">
+                  📄 Baixar PDF
+                </button>
+              </a>
+            </div>
+          `;
+
+          gridEl.appendChild(card);
+        });
+    }
+
+    deptFilterEl.addEventListener("change", renderProcedures);
+    searchInputEl.addEventListener("input", renderProcedures);
+  </script>
+</body>
+</html>
