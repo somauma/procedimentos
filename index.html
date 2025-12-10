@@ -2,59 +2,263 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Área interna</title>
+  <title>Portal de Procedimentos | Somauma</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Script do Google Identity Services -->
+  <!-- Google Identity Services -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
 
   <style>
+    :root {
+      --bg: #f5f5f7;
+      --card-bg: #ffffff;
+      --accent: #00695c;
+      --accent-soft: #e0f2f1;
+      --text-main: #111827;
+      --text-soft: #6b7280;
+      --border-soft: #e5e7eb;
+      --radius-lg: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       margin: 0;
       padding: 0;
-      background: #f5f5f5;
+      background: var(--bg);
+      color: var(--text-main);
     }
+
     .container {
-      max-width: 600px;
-      margin: 40px auto;
-      background: #fff;
-      padding: 24px;
-      border-radius: 12px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      max-width: 1080px;
+      margin: 32px auto;
+      padding: 0 16px;
     }
-    h1, h2 {
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+    }
+
+    h1, h2, h3 {
       margin-top: 0;
     }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+    }
+
+    p {
+      margin-top: 0;
+      line-height: 1.5;
+    }
+
     .hidden {
       display: none;
     }
+
     .error {
       color: #b00020;
       margin-top: 12px;
+      font-size: 0.9rem;
     }
-    .user-info {
+
+    .login-header {
       margin-bottom: 16px;
-      padding: 12px;
-      border-radius: 8px;
-      background: #f0f4ff;
-      font-size: 14px;
     }
-    code {
-      background: #eee;
-      padding: 2px 4px;
-      border-radius: 4px;
+
+    .login-subtitle {
+      color: var(--text-soft);
+      font-size: 0.95rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      background: var(--accent-soft);
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .user-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: #f3f4f6;
+      font-size: 0.9rem;
+    }
+
+    .user-bar span {
+      color: var(--text-soft);
+    }
+
+    .btn {
+      border: none;
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      background: #111827;
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-soft);
+      border: 1px solid var(--border-soft);
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .filters select,
+    .filters input {
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      font-size: 0.9rem;
+      min-width: 180px;
+      outline: none;
+    }
+
+    .filters select:focus,
+    .filters input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(0, 105, 92, 0.15);
+    }
+
+    .procedures-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }
+
+    .procedure-card {
+      border-radius: 16px;
+      border: 1px solid var(--border-soft);
+      padding: 14px;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: transform 0.08s ease, box-shadow 0.08s ease, border-color 0.08s ease;
+    }
+
+    .procedure-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+      border-color: rgba(148, 163, 184, 0.8);
+    }
+
+    .procedure-thumb {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 12px;
+      object-fit: cover;
+      background: #e5e7eb;
+      display: block;
+    }
+
+    .procedure-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .procedure-dept {
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: #f3f4f6;
+      font-weight: 500;
+    }
+
+    .procedure-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .procedure-summary {
+      font-size: 0.9rem;
+      color: var(--text-soft);
+    }
+
+    .procedure-actions {
+      margin-top: auto;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .procedure-actions a {
+      text-decoration: none;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 24px 12px;
+      color: var(--text-soft);
+      font-size: 0.9rem;
+      border-radius: 16px;
+      border: 1px dashed var(--border-soft);
+      margin-top: 12px;
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        margin: 20px auto;
+      }
+      .card {
+        padding: 18px;
+      }
+      h1 {
+        font-size: 1.5rem;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <!-- Área de login -->
-    <div id="login-section">
-      <h1>Login com Google</h1>
-      <p>Faça login com o seu e-mail corporativo para acessar o conteúdo.</p>
+    <!-- LOGIN -->
+    <div id="login-section" class="card">
+      <div class="badge">Acesso restrito · somauma.com</div>
+      <div class="login-header">
+        <h1>Portal de Procedimentos</h1>
+        <p class="login-subtitle">
+          Faça login com o seu e-mail <strong>@somauma.com</strong> para acessar e baixar os procedimentos internos.
+        </p>
+      </div>
 
-      <!-- Configuração do botão / One Tap -->
       <div id="g_id_onload"
         data-client_id="1015680568136-svgn7b59p1j7um8naqchs1r1eh99s02l.apps.googleusercontent.com"
         data-callback="handleCredentialResponse"
@@ -62,7 +266,6 @@
         data-itp_support="true">
       </div>
 
-      <!-- Botão padrão de Sign In -->
       <div class="g_id_signin"
         data-type="standard"
         data-size="large"
@@ -75,28 +278,78 @@
       <div id="login-error" class="error hidden"></div>
     </div>
 
-    <!-- Área protegida (começa escondida) -->
-    <div id="protected-section" class="hidden">
-      <h2>Área interna</h2>
-      <div class="user-info" id="user-info"></div>
+    <!-- PORTAL PROTEGIDO -->
+    <div id="portal-section" class="card hidden">
+      <div class="badge">Portal interno · Somauma</div>
+      <h2>Procedimentos por departamento</h2>
 
-      <p>
-        Aqui vai o <strong>conteúdo protegido</strong> do seu site:
-      </p>
-      <ul>
-        <li>Links internos</li>
-        <li>Documentação da empresa</li>
-        <li>Informações de projetos, etc.</li>
-      </ul>
+      <div class="user-bar">
+        <span id="user-info"></span>
+        <button class="btn btn-ghost" id="logout-btn">Sair</button>
+      </div>
 
-      <button id="logout-btn">Sair</button>
+      <div class="filters">
+        <select id="deptFilter">
+          <option value="todos">Todos os departamentos</option>
+          <option value="Jurídico">Jurídico</option>
+          <option value="Financeiro">Financeiro</option>
+          <option value="Comercial">Comercial</option>
+          <option value="Operações">Operações</option>
+          <option value="RH">RH</option>
+        </select>
+
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Buscar por título ou resumo..."
+        />
+      </div>
+
+      <div id="procedures-grid" class="procedures-grid"></div>
+      <div id="empty-state" class="empty-state hidden">
+        Nenhum procedimento encontrado com os filtros atuais.
+      </div>
     </div>
   </div>
 
   <script>
-    const ALLOWED_DOMAIN = "somauma.com"; // troque pelo domínio do seu Workspace
+    const ALLOWED_DOMAIN = "somauma.com";
 
-    // Decodifica o payload de um JWT (ID token) sem verificar assinatura
+    // Lista de procedimentos (EXEMPLO)
+    // ➜ Troque pelos seus PDFs reais e thumbs
+    const procedures = [
+      {
+        id: 1,
+        department: "Jurídico",
+        title: "Política de Assinatura de Contratos",
+        date: "2025-01-10",
+        summary: "Passo a passo para conferência, aprovação e assinatura de contratos com clientes e fornecedores.",
+        thumbnail: "assets/thumbs/juridico-contratos.png",
+        fileUrl: "assets/pdfs/juridico-politica-assinatura-contratos.pdf"
+      },
+      {
+        id: 2,
+        department: "Financeiro",
+        title: "Procedimento de Contas a Pagar",
+        date: "2025-01-05",
+        summary: "Fluxo completo de recebimento, validação, aprovação e pagamento de notas fiscais.",
+        thumbnail: "assets/thumbs/financeiro-contas-pagar.png",
+        fileUrl: "assets/pdfs/financeiro-contas-a-pagar.pdf"
+      },
+      {
+        id: 3,
+        department: "Comercial",
+        title: "Onboarding de Novos Clientes",
+        date: "2024-12-20",
+        summary: "Roteiro de onboarding, responsabilidades e prazos para novos clientes aprovados.",
+        thumbnail: "assets/thumbs/comercial-onboarding.png",
+        fileUrl: "assets/pdfs/comercial-onboarding-clientes.pdf"
+      }
+      // ➜ Adicione mais objetos aqui
+    ];
+
+    // --- Autenticação Google ---
+
     function parseJwt (token) {
       const parts = token.split('.');
       if (parts.length !== 3) return null;
@@ -122,17 +375,15 @@
       }
 
       const email = data.email;
-      const hd = data.hd; // Hosted domain, quando configurado no Workspace
+      const hd = data.hd;
       const domainFromEmail = email.split("@")[1];
 
-      // Checa domínio permitido
       if (domainFromEmail !== ALLOWED_DOMAIN && hd !== ALLOWED_DOMAIN) {
-        showError("Este site é apenas para usuários do domínio " + ALLOWED_DOMAIN + ".");
+        showError("Este portal é restrito a usuários do domínio " + ALLOWED_DOMAIN + ".");
         return;
       }
 
-      // Se passou na verificação de domínio, exibe conteúdo protegido
-      showProtectedContent(email);
+      showPortal(email);
     }
 
     function showError(msg) {
@@ -141,23 +392,67 @@
       errorDiv.classList.remove("hidden");
     }
 
-    function showProtectedContent(email) {
+    function showPortal(email) {
       const loginSection = document.getElementById("login-section");
-      const protectedSection = document.getElementById("protected-section");
+      const portalSection = document.getElementById("portal-section");
       const userInfo = document.getElementById("user-info");
 
       loginSection.classList.add("hidden");
-      protectedSection.classList.remove("hidden");
+      portalSection.classList.remove("hidden");
 
       userInfo.textContent = "Logado como: " + email;
+
+      renderProcedures(); // Renderiza a primeira vez
     }
 
-    // “Logout” simples: limpa UI e recarrega a página
     document.getElementById("logout-btn").addEventListener("click", () => {
-      // Opcional: revogar sessão Google
-      google.accounts.id.disableAutoSelect();
+      if (window.google && google.accounts && google.accounts.id) {
+        google.accounts.id.disableAutoSelect();
+      }
       window.location.reload();
     });
-  </script>
-</body>
-</html>
+
+    // --- Renderização dos procedimentos ---
+
+    const deptFilterEl = document.getElementById("deptFilter");
+    const searchInputEl = document.getElementById("searchInput");
+    const gridEl = document.getElementById("procedures-grid");
+    const emptyStateEl = document.getElementById("empty-state");
+
+    function formatDate(isoDate) {
+      // Converte AAAA-MM-DD em DD/MM/AAAA
+      const [year, month, day] = isoDate.split("-");
+      return `${day}/${month}/${year}`;
+    }
+
+    function renderProcedures() {
+      const deptFilter = deptFilterEl.value;
+      const searchTerm = searchInputEl.value.trim().toLowerCase();
+
+      gridEl.innerHTML = "";
+
+      const filtered = procedures.filter(p => {
+        const matchesDept =
+          deptFilter === "todos" || p.department === deptFilter;
+
+        const text = (p.title + " " + p.summary).toLowerCase();
+        const matchesSearch = searchTerm === "" || text.includes(searchTerm);
+
+        return matchesDept && matchesSearch;
+      });
+
+      if (filtered.length === 0) {
+        emptyStateEl.classList.remove("hidden");
+        return;
+      } else {
+        emptyStateEl.classList.add("hidden");
+      }
+
+      filtered
+        // Ordena por data desc
+        .sort((a, b) => (a.date < b.date ? 1 : -1))
+        .forEach(p => {
+          const card = document.createElement("div");
+          card.className = "procedure-card";
+
+          card.inn
