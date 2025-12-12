@@ -54,15 +54,6 @@
         margin: 0px 0px 18px 0px;
         color: var(--txtcolorbranco);
       }
-
-      details summary::marker {
-        font-size: 14px;
-        content: "+ ";
-      }
-
-      details[open] summary::marker {
-        content: "- ";
-      }
       input {
         display: flex;
         justify-content: center;
@@ -131,10 +122,12 @@
         justify-content: space-between;
         padding: 0px 0px 28px 0px;
       }
+      .boxProcedimentoTitleBox{
+        display: flex;
+      }
       .boxProcedimentoTitle {
         display: flex;
         justify-content: left;
-        width: 375px;
         font-family: "Roboto Slab", serif;
         font-weight: 700;
         font-size: 18px;
@@ -150,6 +143,7 @@
         font-weight: 400;
         font-size: 14px;
         padding: 6px;
+        margin-right: 10px;
       }
       .boxProcedimentoDate {
         display: flex;
@@ -232,6 +226,17 @@
       .brFake {
         padding: 9px;
       }
+      .footerBar {
+        display: flex;
+        padding: 18px 0px 18px 0px;
+        justify-content: center;
+      }
+      .footerText {
+        font-family: "Roboto Slab", serif;
+        font-size: 14px;
+        font-weight: 100;
+        color: var(--bordercolor);
+      }
       img {
         border: 0px;
       }
@@ -263,8 +268,10 @@
         <div class="container">
           <div class="boxProcedimento" style="background-color: var(--colorFIN2)">
             <div class="boxProcedimentoTitleBar">
+              <div class="boxProcedimentoTitleBox">
               <div class="boxProcedimentoCode">FIN#001</div>
               <div class="boxProcedimentoTitle">Procedimento Teste</div>
+                </div>
               <div class="boxProcedimentoDate">01/01/2026</div>
             </div>
             <div class="boxProcedimentoResumo">
@@ -297,8 +304,10 @@
         <div class="container">
           <div class="boxProcedimento" style="background-color: var(--colorRHU2)">
             <div class="boxProcedimentoTitleBar">
+              <div class="boxProcedimentoTitleBox">
               <div class="boxProcedimentoCode">RHU#001</div>
               <div class="boxProcedimentoTitle">Procedimento Teste</div>
+              </div>
               <div class="boxProcedimentoDate">01/01/2026</div>
             </div>
             <div class="boxProcedimentoResumo">
@@ -331,8 +340,10 @@
         <div class="container">
           <div class="boxProcedimento" style="background-color: var(--colorJUR2)">
             <div class="boxProcedimentoTitleBar">
+              <div class="boxProcedimentoTitleBox">
               <div class="boxProcedimentoCode">JUR#001</div>
               <div class="boxProcedimentoTitle">Análise de Contrato</div>
+              </div>
               <div class="boxProcedimentoDate">24/11/2025</div>
             </div>
             <div class="boxProcedimentoResumo">
@@ -354,8 +365,10 @@
         <div class="container">
           <div class="boxProcedimento" style="background-color: var(--colorJUR2)">
             <div class="boxProcedimentoTitleBar">
+              <div class="boxProcedimentoTitleBox">
               <div class="boxProcedimentoCode">JUR#002</div>
               <div class="boxProcedimentoTitle">Cessão de Direitos de Cliente</div>
+              </div>
               <div class="boxProcedimentoDate">24/11/2025</div>
             </div>
             <div class="boxProcedimentoResumo">
@@ -388,8 +401,10 @@
         <div class="container">
           <div class="boxProcedimento" style="background-color: var(--colorINC2)">
             <div class="boxProcedimentoTitleBar">
+              <div class="boxProcedimentoTitleBox">
               <div class="boxProcedimentoCode">INC#001</div>
               <div class="boxProcedimentoTitle">Procedimento Teste</div>
+              </div>
               <div class="boxProcedimentoDate">01/01/2026</div>
             </div>
             <div class="boxProcedimentoResumo">
@@ -422,8 +437,10 @@
         <div class="container">
           <div class="boxProcedimento" style="background-color: var(--colorCOM2)">
             <div class="boxProcedimentoTitleBar">
+              <div class="boxProcedimentoTitleBox">
               <div class="boxProcedimentoCode">COM#001</div>
               <div class="boxProcedimentoTitle">Procedimento Teste</div>
+              </div>
               <div class="boxProcedimentoDate">01/01/2026</div>
             </div>
             <div class="boxProcedimentoResumo">
@@ -456,8 +473,10 @@
         <div class="container">
           <div class="boxProcedimento" style="background-color: var(--colorMKT2)">
             <div class="boxProcedimentoTitleBar">
+              <div class="boxProcedimentoTitleBox">
               <div class="boxProcedimentoCode">MKT#001</div>
               <div class="boxProcedimentoTitle">Procedimento Teste</div>
+              </div>
               <div class="boxProcedimentoDate">01/01/2026</div>
             </div>
             <div class="boxProcedimentoResumo">
@@ -490,8 +509,10 @@
         <div class="container">
           <div class="boxProcedimento" style="background-color: var(--colorENG2)">
             <div class="boxProcedimentoTitleBar">
+              <div class="boxProcedimentoTitleBox">
               <div class="boxProcedimentoCode">ENG#001</div>
               <div class="boxProcedimentoTitle">Procedimento Teste</div>
+              </div>
               <div class="boxProcedimentoDate">01/01/2026</div>
             </div>
             <div class="boxProcedimentoResumo">
@@ -524,8 +545,10 @@
         <div class="container">
           <div class="boxProcedimento" style="background-color: var(--colorSAC2)">
             <div class="boxProcedimentoTitleBar">
+              <div class="boxProcedimentoTitleBox">
               <div class="boxProcedimentoCode">SAC#001</div>
               <div class="boxProcedimentoTitle">Procedimento Teste</div>
+              </div>
               <div class="boxProcedimentoDate">01/01/2026</div>
             </div>
             <div class="boxProcedimentoResumo">
@@ -544,6 +567,12 @@
         <!-- Fim Procedimento-->
         
       </details>
+      
+      <div class="brFake"></div>
+      <div class="linhaH"></div>
+      <div class="footerBar">
+      <span class="footerText">® Somauma Incorporação e Desenvolvimento Imobiliário Ltda., 2025.</span>
+      </div>
       
       <!-- FIM DA PÁGINA -->
     </div>
