@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Somauma | Apoio Viabilidade</title>
+    <title>Somauma | Portal de Procedimentos</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;600;700&display=swap"
       rel="stylesheet" />
@@ -10,13 +10,39 @@
       /*ESTRUTURAIS*/
       :root {
         --bgcolor: #1e2129;
-        --bgcolor2: #2e363e;
+        --bgcolor2: #1d242b;
+        --bgcolor3: #2e363e;
         --inputcolor: #2e363e;
         --bordercolor: #595b61;
+        --bordercolor2: #454850;
         --txtcolorbranco: #ffffff;
         --txtcolorcinza: #2e363e;
         --btncolorescuro: #1c2026;
         --btncolorazul: #2b6bf3;
+        --colorFIN1: #ea4747ff;
+        --colorFIN2: #ea47471a;
+        --colorFIN3: #ea47473d;
+        --colorRHU1: #ff7d43ff;
+        --colorRHU2: #ff7d431a;
+        --colorRHU3: #ff7d433d;
+        --colorJUR1: #c19c00ff;
+        --colorJUR2: #c19c001a;
+        --colorJUR3: #c19c003d;
+        --colorINC1: #9cb543ff;
+        --colorINC2: #9cb5431a;
+        --colorINC3: #9cb5433d;
+        --colorCOM1: #14c988ff;
+        --colorCOM2: #14c9881a;
+        --colorCOM3: #14c9883d;
+        --colorMKT1: #00b8bcff;
+        --colorMKT2: #00b8bc1a;
+        --colorMKT3: #00b8bc3d;
+        --colorENG1: #1679b5ff;
+        --colorENG2: #1679b51a;
+        --colorENG3: #1679b53d;
+        --colorSAC1: #9038f4ff;
+        --colorSAC2: #9038f41a;
+        --colorSAC3: #9038f43d;
       }
       * {
         box-sizing: border-box;
@@ -56,24 +82,33 @@
         width: 600px;
         margin: auto;
       }
-      .titulo {
+      .tituloPagina {
         display: flex;
         justify-content: center;
-        padding: 18px;
+        padding: 18px 0px 0px 0px;
         font-size: 18px;
         font-family: "Roboto Slab", serif;
         font-weight: 700;
         color: var(--txtcolorbranco);
       }
-      .tituloDepto {
+      .tituloDeptoBar {
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
         padding: 18px;
         font-size: 18px;
         font-family: "Roboto Slab", serif;
         font-weight: 700;
         color: var(--txtcolorbranco);
-        background-color: var(--bgcolor2);
+        background-color: var(--bgcolor3);
+        border-top: 1px solid var(--bordercolor);
+        border-bottom: 1px solid var(--bordercolor);
+        margin: 18px 0px 0px 0px;
+      }
+      .tituloDepto {
+        font-size: 18px;
+        font-family: "Roboto Slab", serif;
+        font-weight: 700;
+        color: var(--txtcolorbranco);
       }
       .logoHeader {
         display: flex;
@@ -84,9 +119,11 @@
         display: flex;
         flex-direction: column;
         padding: 18px;
-        border: 1px solid var(--bordercolor);
+        margin-bottom: 18px;
+        border: 1px solid var(--bordercolor2);
         background-color: var(--bgcolor2);
         border-radius: 10px;
+        box-shadow: 0px 0px 10px black;
       }
       .boxProcedimentoTitleBar {
         display: flex;
@@ -95,12 +132,29 @@
         padding: 0px 0px 28px 0px;
       }
       .boxProcedimentoTitle {
+        display: flex;
+        justify-content: left;
+        width: 375px;
         font-family: "Roboto Slab", serif;
         font-weight: 700;
         font-size: 18px;
         padding: 6px 0px 6px 0px;
       }
+      .boxProcedimentoCode {
+        display: flex;
+        justify-content: center;
+        width: 80px;
+        border: 1px solid var(--bordercolor);
+        border-radius: 6px;
+        font-family: "Roboto Slab", serif;
+        font-weight: 400;
+        font-size: 14px;
+        padding: 6px;
+      }
       .boxProcedimentoDate {
+        display: flex;
+        justify-content: center;
+        width: 90px;
         border: 1px solid var(--bordercolor);
         border-radius: 6px;
         font-family: "Roboto Slab", serif;
@@ -175,8 +229,18 @@
         color: var(--txtcolorbranco);
         text-decoration: none;
       }
+      .brFake {
+        padding: 9px;
+      }
       img {
         border: 0px;
+      }
+      summary {
+        list-style: none;
+        cursor: pointer;
+      }
+      summary:active {
+        transform: translateY(1px);
       }
     </style>
   </head>
@@ -184,50 +248,304 @@
     <div class="wrap">
       <div class="logoHeader"><img src="somauma_logo_branca_baixa_cropped.png" width="120px" /></div>
       <div class="linhaH"></div>
-      <div class="titulo">PORTAL DE PROCEDIMENTOS</div>
-      <div class="linhaH"></div>
-      <div class="tituloDepto">JURÍDICO</div>
-      <div class="linhaH"></div>
-      
-      <!-- JUR001 -->
-      <div class="container">
-        <div class="boxProcedimento">
-          <div class="boxProcedimentoTitleBar">
-            <div class="boxProcedimentoTitle">JUR001. Análise de Contratos</div>
-            <div class="boxProcedimentoDate">24/11/2025</div>
-          </div>
-          <div class="boxProcedimentoResumo">
-            Solitcitação de qualquer outra área ou departamento para que o Departamento Juridico faça uma análise e dê
-            um parecer jurídico e/ou faça revisões no documento.
-          </div>
-          <div class="linha">
-            <a href="https://drive.google.com/open?id=1J_T0qUe9OXUnk1ZUnCobKoAl2hY8IhJH&usp=drive_fs" class="botao"
-              >Ver Procedimento</a
-            >
-          </div>
-        </div>
-      </div>
-      
-            <!-- JUR002 -->
-      <div class="container">
-        <div class="boxProcedimento">
-          <div class="boxProcedimentoTitleBar">
-            <div class="boxProcedimentoTitle">JUR002. Cessão de Direitos de Venda</div>
-            <div class="boxProcedimentoDate">24/11/2025</div>
-          </div>
-          <div class="boxProcedimentoResumo">
-            Solitcitação de qualquer outra área ou departamento para que o Departamento Juridico faça uma análise e dê
-            um parecer jurídico e/ou faça revisões no documento.
-          </div>
-          <div class="linha">
-            <a href="https://drive.google.com/open?id=1J_T0qUe9OXUnk1ZUnCobKoAl2hY8IhJH&usp=drive_fs" class="botao"
-              >Ver Procedimento</a
-            >
+      <div class="tituloPagina">PORTAL DE PROCEDIMENTOS</div>
+
+      <!--ADMINISTRATIVO / FINANCEIRO-->
+      <details>
+        <summary>
+          <span class="tituloDeptoBar" style="background-color: var(--colorFIN3)">
+            <span class="tituloDepto">ADMINISTRATIVO / FINANCEIRO</span>
+            <span class="tituloDepto">+ / -</span>
+          </span>
+        </summary>
+
+        <!-- Início Procedimento-->
+        <div class="container">
+          <div class="boxProcedimento" style="background-color: var(--colorFIN2)">
+            <div class="boxProcedimentoTitleBar">
+              <div class="boxProcedimentoCode">FIN#001</div>
+              <div class="boxProcedimentoTitle">Procedimento Teste</div>
+              <div class="boxProcedimentoDate">01/01/2026</div>
+            </div>
+            <div class="boxProcedimentoResumo">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tempor velit nunc, sed dictum eros eleifend eu. Sed mauris velit, porttitor eu tristique quis, ultricies vestibulum enim. Pellentesque nisi tortor, blandit sit amet lectus in, congue interdum mauris.
+            </div>
+            <div class="linha">
+              <a
+                href=""
+                class="botao"
+                style="background-color: var(--colorFIN1)"
+                >Ver Procedimento</a
+              >
+            </div>
           </div>
         </div>
-      </div>
+        <!-- Fim Procedimento-->
+        
+      </details>
+
+      <!--RECURSOS HUMANOS-->
+      <details>
+        <summary>
+          <span class="tituloDeptoBar" style="background-color: var(--colorRHU3)">
+            <span class="tituloDepto">RECURSOS HUMANOS</span>
+            <span class="tituloDepto">+ / -</span>
+          </span>
+        </summary>
+        
+        <!-- Início Procedimento-->
+        <div class="container">
+          <div class="boxProcedimento" style="background-color: var(--colorRHU2)">
+            <div class="boxProcedimentoTitleBar">
+              <div class="boxProcedimentoCode">RHU#001</div>
+              <div class="boxProcedimentoTitle">Procedimento Teste</div>
+              <div class="boxProcedimentoDate">01/01/2026</div>
+            </div>
+            <div class="boxProcedimentoResumo">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tempor velit nunc, sed dictum eros eleifend eu. Sed mauris velit, porttitor eu tristique quis, ultricies vestibulum enim. Pellentesque nisi tortor, blandit sit amet lectus in, congue interdum mauris.
+            </div>
+            <div class="linha">
+              <a
+                href=""
+                class="botao"
+                style="background-color: var(--colorRHU1)"
+                >Ver Procedimento</a
+              >
+            </div>
+          </div>
+        </div>
+        <!-- Fim Procedimento-->
+        
+      </details>
       
+      <!--JURÍDICO-->
+      <details>
+        <summary>
+          <span class="tituloDeptoBar" style="background-color: var(--colorJUR3)">
+            <span class="tituloDepto">JURÍDICO</span>
+            <span class="tituloDepto">+ / -</span>
+          </span>
+        </summary>
+        
+        <!-- Início Procedimento-->
+        <div class="container">
+          <div class="boxProcedimento" style="background-color: var(--colorJUR2)">
+            <div class="boxProcedimentoTitleBar">
+              <div class="boxProcedimentoCode">JUR#001</div>
+              <div class="boxProcedimentoTitle">Análise de Contrato</div>
+              <div class="boxProcedimentoDate">24/11/2025</div>
+            </div>
+            <div class="boxProcedimentoResumo">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tempor velit nunc, sed dictum eros eleifend eu. Sed mauris velit, porttitor eu tristique quis, ultricies vestibulum enim. Pellentesque nisi tortor, blandit sit amet lectus in, congue interdum mauris.
+            </div>
+            <div class="linha">
+              <a
+                href="https://drive.google.com/open?id=1Tz8tCjeT3XH9MJIB9vVkbzc6HiDtXguV&usp=drive_fs"
+                class="botao"
+                style="background-color: var(--colorJUR1)"
+                >Ver Procedimento</a
+              >
+            </div>
+          </div>
+        </div>
+        <!-- Fim Procedimento-->
+        
+        <!-- Início Procedimento-->
+        <div class="container">
+          <div class="boxProcedimento" style="background-color: var(--colorJUR2)">
+            <div class="boxProcedimentoTitleBar">
+              <div class="boxProcedimentoCode">JUR#002</div>
+              <div class="boxProcedimentoTitle">Cessão de Direitos de Cliente</div>
+              <div class="boxProcedimentoDate">24/11/2025</div>
+            </div>
+            <div class="boxProcedimentoResumo">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tempor velit nunc, sed dictum eros eleifend eu. Sed mauris velit, porttitor eu tristique quis, ultricies vestibulum enim. Pellentesque nisi tortor, blandit sit amet lectus in, congue interdum mauris.
+            </div>
+            <div class="linha">
+              <a
+                href="https://drive.google.com/open?id=1-D44vf-hSNxYUi9L1TGnhM8WiviAbg-M&usp=drive_fs"
+                class="botao"
+                style="background-color: var(--colorJUR1)"
+                >Ver Procedimento</a
+              >
+            </div>
+          </div>
+        </div>
+        <!-- Fim Procedimento-->
+        
+      </details>
+
+      <!--PROJETOS / INCORPORAÇÃO-->
+      <details>
+        <summary>
+          <span class="tituloDeptoBar" style="background-color: var(--colorINC3)">
+            <span class="tituloDepto">PROJETOS / INCORPORAÇÃO</span>
+            <span class="tituloDepto">+ / -</span>
+          </span>
+        </summary>
+        
+        <!-- Início Procedimento-->
+        <div class="container">
+          <div class="boxProcedimento" style="background-color: var(--colorINC2)">
+            <div class="boxProcedimentoTitleBar">
+              <div class="boxProcedimentoCode">INC#001</div>
+              <div class="boxProcedimentoTitle">Procedimento Teste</div>
+              <div class="boxProcedimentoDate">01/01/2026</div>
+            </div>
+            <div class="boxProcedimentoResumo">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tempor velit nunc, sed dictum eros eleifend eu. Sed mauris velit, porttitor eu tristique quis, ultricies vestibulum enim. Pellentesque nisi tortor, blandit sit amet lectus in, congue interdum mauris.
+            </div>
+            <div class="linha">
+              <a
+                href=""
+                class="botao"
+                style="background-color: var(--colorINC1)"
+                >Ver Procedimento</a
+              >
+            </div>
+          </div>
+        </div>
+        <!-- Fim Procedimento-->
+        
+      </details>
       
+      <!--COMERCIAL-->
+      <details>
+        <summary>
+          <span class="tituloDeptoBar" style="background-color: var(--colorCOM3)">
+            <span class="tituloDepto">COMERCIAL</span>
+            <span class="tituloDepto">+ / -</span>
+          </span>
+        </summary>
+        
+        <!-- Início Procedimento-->
+        <div class="container">
+          <div class="boxProcedimento" style="background-color: var(--colorCOM2)">
+            <div class="boxProcedimentoTitleBar">
+              <div class="boxProcedimentoCode">COM#001</div>
+              <div class="boxProcedimentoTitle">Procedimento Teste</div>
+              <div class="boxProcedimentoDate">01/01/2026</div>
+            </div>
+            <div class="boxProcedimentoResumo">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tempor velit nunc, sed dictum eros eleifend eu. Sed mauris velit, porttitor eu tristique quis, ultricies vestibulum enim. Pellentesque nisi tortor, blandit sit amet lectus in, congue interdum mauris.
+            </div>
+            <div class="linha">
+              <a
+                href=""
+                class="botao"
+                style="background-color: var(--colorCOM1)"
+                >Ver Procedimento</a
+              >
+            </div>
+          </div>
+        </div>
+        <!-- Fim Procedimento-->
+        
+      </details>
+      
+      <!--MARKETING E COMUNICAÇÃO-->
+      <details>
+        <summary>
+          <span class="tituloDeptoBar" style="background-color: var(--colorMKT3)">
+            <span class="tituloDepto">MARKETING E COMUNICAÇÃO</span>
+            <span class="tituloDepto">+ / -</span>
+          </span>
+        </summary>
+        
+        <!-- Início Procedimento-->
+        <div class="container">
+          <div class="boxProcedimento" style="background-color: var(--colorMKT2)">
+            <div class="boxProcedimentoTitleBar">
+              <div class="boxProcedimentoCode">MKT#001</div>
+              <div class="boxProcedimentoTitle">Procedimento Teste</div>
+              <div class="boxProcedimentoDate">01/01/2026</div>
+            </div>
+            <div class="boxProcedimentoResumo">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tempor velit nunc, sed dictum eros eleifend eu. Sed mauris velit, porttitor eu tristique quis, ultricies vestibulum enim. Pellentesque nisi tortor, blandit sit amet lectus in, congue interdum mauris.
+            </div>
+            <div class="linha">
+              <a
+                href=""
+                class="botao"
+                style="background-color: var(--colorMKT1)"
+                >Ver Procedimento</a
+              >
+            </div>
+          </div>
+        </div>
+        <!-- Fim Procedimento-->
+        
+      </details>
+      
+      <!--ENGENHARIA / CONSTRUÇÃO-->
+      <details>
+        <summary>
+          <span class="tituloDeptoBar" style="background-color: var(--colorENG3)">
+            <span class="tituloDepto">ENGENHARIA / CONSTRUÇÃO</span>
+            <span class="tituloDepto">+ / -</span>
+          </span>
+        </summary>
+        
+        <!-- Início Procedimento-->
+        <div class="container">
+          <div class="boxProcedimento" style="background-color: var(--colorENG2)">
+            <div class="boxProcedimentoTitleBar">
+              <div class="boxProcedimentoCode">ENG#001</div>
+              <div class="boxProcedimentoTitle">Procedimento Teste</div>
+              <div class="boxProcedimentoDate">01/01/2026</div>
+            </div>
+            <div class="boxProcedimentoResumo">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tempor velit nunc, sed dictum eros eleifend eu. Sed mauris velit, porttitor eu tristique quis, ultricies vestibulum enim. Pellentesque nisi tortor, blandit sit amet lectus in, congue interdum mauris.
+            </div>
+            <div class="linha">
+              <a
+                href=""
+                class="botao"
+                style="background-color: var(--colorENG1)"
+                >Ver Procedimento</a
+              >
+            </div>
+          </div>
+        </div>
+        <!-- Fim Procedimento-->
+        
+      </details>
+      
+      <!--SAC / ASSISTÊNCIA TÉCNICA-->
+      <details>
+        <summary>
+          <span class="tituloDeptoBar" style="background-color: var(--colorSAC3)">
+            <span class="tituloDepto">SAC / ASSISTÊNCIA TÉCNICA</span>
+            <span class="tituloDepto">+ / -</span>
+          </span>
+        </summary>
+        
+        <!-- Início Procedimento-->
+        <div class="container">
+          <div class="boxProcedimento" style="background-color: var(--colorSAC2)">
+            <div class="boxProcedimentoTitleBar">
+              <div class="boxProcedimentoCode">SAC#001</div>
+              <div class="boxProcedimentoTitle">Procedimento Teste</div>
+              <div class="boxProcedimentoDate">01/01/2026</div>
+            </div>
+            <div class="boxProcedimentoResumo">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tempor velit nunc, sed dictum eros eleifend eu. Sed mauris velit, porttitor eu tristique quis, ultricies vestibulum enim. Pellentesque nisi tortor, blandit sit amet lectus in, congue interdum mauris.
+            </div>
+            <div class="linha">
+              <a
+                href=""
+                class="botao"
+                style="background-color: var(--colorSAC1)"
+                >Ver Procedimento</a
+              >
+            </div>
+          </div>
+        </div>
+        <!-- Fim Procedimento-->
+        
+      </details>
+      
+      <!-- FIM DA PÁGINA -->
     </div>
   </body>
 </html>
