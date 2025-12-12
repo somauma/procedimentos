@@ -1,488 +1,233 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <title>Portal de Procedimentos | Somauma</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <!-- Google Identity Services -->
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
-
-  <style>
-    :root {
-      --bg: #bdf0d3;
-      --card-bg: #ffffff;
-      --accent: #00695c;
-      --accent-soft: #e0f2f1;
-      --text-main: #111827;
-      --text-soft: #6b7280;
-      --border-soft: #e5e7eb;
-      --radius-lg: 14px;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      margin: 0;
-      padding: 0;
-      background: var(--bg);
-      color: var(--text-main);
-    }
-
-    .container {
-      max-width: 1080px;
-      margin: 32px auto;
-      padding: 0 16px;
-    }
-
-    .card {
-      background: var(--card-bg);
-      border-radius: var(--radius-lg);
-      padding: 24px;
-      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
-      border: 1px solid rgba(148, 163, 184, 0.2);
-    }
-
-    h1, h2, h3 {
-      margin-top: 0;
-    }
-
-    h1 {
-      font-size: 1.8rem;
-      margin-bottom: 8px;
-    }
-
-    h2 {
-      font-size: 1.4rem;
-    }
-
-    p {
-      margin-top: 0;
-      line-height: 1.5;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    .error {
-      color: #b00020;
-      margin-top: 12px;
-      font-size: 0.9rem;
-    }
-
-    .login-header {
-      margin-bottom: 16px;
-    }
-
-    .login-subtitle {
-      color: var(--text-soft);
-      font-size: 0.95rem;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-size: 0.75rem;
-      background: var(--accent-soft);
-      color: var(--accent);
-      margin-bottom: 12px;
-    }
-
-    .user-bar {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 20px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: #f3f4f6;
-      font-size: 0.9rem;
-    }
-
-    .user-bar span {
-      color: var(--text-soft);
-    }
-
-    .btn {
-      border: none;
-      border-radius: 999px;
-      padding: 8px 14px;
-      font-size: 0.85rem;
-      cursor: pointer;
-      background: #111827;
-      color: #fff;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .btn-ghost {
-      background: transparent;
-      color: var(--text-soft);
-      border: 1px solid var(--border-soft);
-    }
-
-    .filters {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 18px;
-    }
-
-    .filters select,
-    .filters input {
-      padding: 8px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--border-soft);
-      font-size: 0.9rem;
-      min-width: 180px;
-      outline: none;
-    }
-
-    .filters select:focus,
-    .filters input:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(0, 105, 92, 0.15);
-    }
-
-    .procedures-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 18px;
-    }
-
-    .procedure-card {
-      border-radius: 16px;
-      border: 1px solid var(--border-soft);
-      padding: 14px;
-      background: #ffffff;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      transition: transform 0.08s ease, box-shadow 0.08s ease, border-color 0.08s ease;
-    }
-
-    .procedure-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
-      border-color: rgba(148, 163, 184, 0.8);
-    }
-
-    .procedure-thumb {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      border-radius: 12px;
-      object-fit: cover;
-      background: #e5e7eb;
-      display: block;
-    }
-
-    .procedure-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.8rem;
-      color: var(--text-soft);
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .procedure-dept {
-      padding: 3px 9px;
-      border-radius: 999px;
-      background: #f3f4f6;
-      font-weight: 500;
-    }
-
-    .procedure-title {
-      font-size: 1rem;
-      font-weight: 600;
-      margin: 0;
-    }
-
-    .procedure-summary {
-      font-size: 0.9rem;
-      color: var(--text-soft);
-    }
-
-    .procedure-actions {
-      margin-top: auto;
-      display: flex;
-      justify-content: flex-end;
-    }
-
-    .procedure-actions a {
-      text-decoration: none;
-    }
-
-    .empty-state {
-      text-align: center;
-      padding: 24px 12px;
-      color: var(--text-soft);
-      font-size: 0.9rem;
-      border-radius: 16px;
-      border: 1px dashed var(--border-soft);
-      margin-top: 12px;
-    }
-
-    @media (max-width: 640px) {
-      .container {
-        margin: 20px auto;
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Somauma | Apoio Viabilidade</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;600;700&display=swap"
+      rel="stylesheet" />
+    <style>
+      /*ESTRUTURAIS*/
+      :root {
+        --bgcolor: #1e2129;
+        --bgcolor2: #2e363e;
+        --inputcolor: #2e363e;
+        --bordercolor: #595b61;
+        --txtcolorbranco: #ffffff;
+        --txtcolorcinza: #2e363e;
+        --btncolorescuro: #1c2026;
+        --btncolorazul: #2b6bf3;
       }
-      .card {
+      * {
+        box-sizing: border-box;
+      }
+
+      /*TAGS NATIVAS*/
+      body {
+        background-color: var(--bgcolor);
+        margin: 0px 0px 18px 0px;
+        color: var(--txtcolorbranco);
+      }
+
+      details summary::marker {
+        font-size: 14px;
+        content: "+ ";
+      }
+
+      details[open] summary::marker {
+        content: "- ";
+      }
+      input {
+        display: flex;
+        justify-content: center;
+        text-align: left;
+        width: 100%;
+        padding: 12px;
+        background-color: var(--inputcolor);
+        border: 1px solid var(--bordercolor);
+        border-radius: 8px;
+        font-size: 12px;
+        line-height: 12px;
+        font-family: "Roboto Slab", serif;
+        color: var(--txtcolorbranco);
+      }
+      /*CLASSES*/
+      .wrap {
+        width: 600px;
+        margin: auto;
+      }
+      .titulo {
+        display: flex;
+        justify-content: center;
         padding: 18px;
+        font-size: 18px;
+        font-family: "Roboto Slab", serif;
+        font-weight: 700;
+        color: var(--txtcolorbranco);
       }
-      h1 {
-        font-size: 1.5rem;
+      .tituloDepto {
+        display: flex;
+        justify-content: center;
+        padding: 18px;
+        font-size: 18px;
+        font-family: "Roboto Slab", serif;
+        font-weight: 700;
+        color: var(--txtcolorbranco);
+        background-color: var(--bgcolor2);
       }
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <!-- LOGIN -->
-    <div id="login-section" class="card">
-      <div class="badge">Acesso restrito · somauma.com</div>
-      <div class="login-header">
-        <h1>Portal de Procedimentos</h1>
-        <p class="login-subtitle">
-          Faça login com o seu e-mail <strong>@somauma.com</strong> para acessar e baixar os procedimentos internos.
-        </p>
+      .logoHeader {
+        display: flex;
+        justify-content: center;
+        padding: 36px;
+      }
+      .boxProcedimento {
+        display: flex;
+        flex-direction: column;
+        padding: 18px;
+        border: 1px solid var(--bordercolor);
+        background-color: var(--bgcolor2);
+        border-radius: 10px;
+      }
+      .boxProcedimentoTitleBar {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 0px 0px 28px 0px;
+      }
+      .boxProcedimentoTitle {
+        font-family: "Roboto Slab", serif;
+        font-weight: 700;
+        font-size: 18px;
+        padding: 6px 0px 6px 0px;
+      }
+      .boxProcedimentoDate {
+        border: 1px solid var(--bordercolor);
+        border-radius: 6px;
+        font-family: "Roboto Slab", serif;
+        font-weight: 200;
+        font-size: 14px;
+        padding: 6px;
+      }
+      .boxProcedimentoResumo {
+        font-family: "Roboto Slab", serif;
+        font-weight: 100;
+        font-size: 14px;
+        padding: 0px 0px 14px 0px;
+      }
+      .linhaH {
+        background-color: var(--bordercolor);
+        height: 1px;
+      }
+      .container {
+        margin-top: 18px;
+      }
+      .botao {
+        display: flex;
+        justify-content: center;
+        width: 150px;
+        padding: 12px;
+        font-size: 14px;
+        font-family: "Roboto Slab", serif;
+        color: var(--txtcolorbranco);
+        background-color: var(--btncolorazul);
+        border-radius: 8px;
+        cursor: pointer;
+        text-decoration: none;
+      }
+      .botao:active {
+        transform: translateY(1px);
+      }
+      .inputSuffix {
+        content: "R$";
+        font-size: 12px;
+        font-family: "Roboto Slab", serif;
+        color: var(--btncolorazul);
+      }
+      .titcollapse {
+        padding: 12px 12px 12px 0px;
+        border-bottom: 1px dashed var(--txtcolorbranco);
+        font-size: 12px;
+        font-family: "Roboto Slab", serif;
+        color: var(--txtcolorbranco);
+        margin-top: 10px;
+        margin-bottom: 10px;
+        cursor: pointer;
+      }
+      .titcollapse:active {
+        transform: translateY(1px);
+      }
+      .linha {
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+      .gridInput {
+        display: grid;
+        grid-template-columns: 1fr 2fr 36px;
+        grid-template-rows: 36px;
+        gap: 6px;
+      }
+      .labelInput {
+        display: flex;
+        padding: 12px 12px 12px 0px;
+        font-size: 12px;
+        line-height: 12px;
+        font-family: "Roboto Slab", serif;
+        color: var(--txtcolorbranco);
+        text-decoration: none;
+      }
+      img {
+        border: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="logoHeader"><img src="somauma_logo_branca_baixa_cropped.png" width="120px" /></div>
+      <div class="linhaH"></div>
+      <div class="titulo">PORTAL DE PROCEDIMENTOS</div>
+      <div class="linhaH"></div>
+      <div class="tituloDepto">JURÍDICO</div>
+      <div class="linhaH"></div>
+      
+      <!-- JUR001 -->
+      <div class="container">
+        <div class="boxProcedimento">
+          <div class="boxProcedimentoTitleBar">
+            <div class="boxProcedimentoTitle">JUR001. Análise de Contratos</div>
+            <div class="boxProcedimentoDate">24/11/2025</div>
+          </div>
+          <div class="boxProcedimentoResumo">
+            Solitcitação de qualquer outra área ou departamento para que o Departamento Juridico faça uma análise e dê
+            um parecer jurídico e/ou faça revisões no documento.
+          </div>
+          <div class="linha">
+            <a href="https://drive.google.com/open?id=1J_T0qUe9OXUnk1ZUnCobKoAl2hY8IhJH&usp=drive_fs" class="botao"
+              >Ver Procedimento</a
+            >
+          </div>
+        </div>
       </div>
-
-      <div id="g_id_onload"
-        data-client_id="1015680568136-svgn7b59p1j7um8naqchs1r1eh99s02l.apps.googleusercontent.com"
-        data-callback="handleCredentialResponse"
-        data-auto_select="false"
-        data-itp_support="true">
+      
+            <!-- JUR002 -->
+      <div class="container">
+        <div class="boxProcedimento">
+          <div class="boxProcedimentoTitleBar">
+            <div class="boxProcedimentoTitle">JUR002. Cessão de Direitos de Venda</div>
+            <div class="boxProcedimentoDate">24/11/2025</div>
+          </div>
+          <div class="boxProcedimentoResumo">
+            Solitcitação de qualquer outra área ou departamento para que o Departamento Juridico faça uma análise e dê
+            um parecer jurídico e/ou faça revisões no documento.
+          </div>
+          <div class="linha">
+            <a href="https://drive.google.com/open?id=1J_T0qUe9OXUnk1ZUnCobKoAl2hY8IhJH&usp=drive_fs" class="botao"
+              >Ver Procedimento</a
+            >
+          </div>
+        </div>
       </div>
-
-      <div class="g_id_signin"
-        data-type="standard"
-        data-size="large"
-        data-theme="outline"
-        data-text="signin_with"
-        data-shape="rectangular"
-        data-logo_alignment="left">
-      </div>
-
-      <div id="login-error" class="error hidden"></div>
+      
+      
     </div>
-
-    <!-- PORTAL PROTEGIDO -->
-    <div id="portal-section" class="card hidden">
-      <div class="badge">Portal interno · Somauma</div>
-      <h2>Procedimentos por departamento</h2>
-
-      <div class="user-bar">
-        <span id="user-info"></span>
-        <button class="btn btn-ghost" id="logout-btn">Sair</button>
-      </div>
-
-      <div class="filters">
-        <select id="deptFilter">
-          <option value="todos">Todos os departamentos</option>
-          <option value="Jurídico">Jurídico</option>
-          <option value="Financeiro">Financeiro</option>
-          <option value="Comercial">Comercial</option>
-          <option value="Operações">Operações</option>
-          <option value="RH">RH</option>
-        </select>
-
-        <input
-          type="text"
-          id="searchInput"
-          placeholder="Buscar por título ou resumo..."
-        />
-      </div>
-
-      <div id="procedures-grid" class="procedures-grid"></div>
-      <div id="empty-state" class="empty-state hidden">
-        Nenhum procedimento encontrado com os filtros atuais.
-      </div>
-    </div>
-  </div>
-
-  <script>
-    const ALLOWED_DOMAIN = "somauma.com";
-
-    // Lista de procedimentos (EXEMPLO)
-    // ➜ Troque pelos seus PDFs reais e thumbs
-    const procedures = [
-      {
-        id: 1,
-        department: "Jurídico",
-        title: "Política de Assinatura de Contratos",
-        date: "2025-01-10",
-        summary: "Passo a passo para conferência, aprovação e assinatura de contratos com clientes e fornecedores.",
-        thumbnail: "assets/thumbs/juridico-contratos.png",
-        fileUrl: "assets/pdfs/juridico-politica-assinatura-contratos.pdf"
-      },
-      {
-        id: 2,
-        department: "Financeiro",
-        title: "Procedimento de Contas a Pagar",
-        date: "2025-01-05",
-        summary: "Fluxo completo de recebimento, validação, aprovação e pagamento de notas fiscais.",
-        thumbnail: "assets/thumbs/financeiro-contas-pagar.png",
-        fileUrl: "assets/pdfs/financeiro-contas-a-pagar.pdf"
-      },
-      {
-        id: 3,
-        department: "Comercial",
-        title: "Onboarding de Novos Clientes",
-        date: "2024-12-20",
-        summary: "Roteiro de onboarding, responsabilidades e prazos para novos clientes aprovados.",
-        thumbnail: "assets/thumbs/comercial-onboarding.png",
-        fileUrl: "assets/pdfs/comercial-onboarding-clientes.pdf"
-      }
-      // ➜ Adicione mais objetos aqui
-    ];
-
-    // --- Autenticação Google ---
-
-    function parseJwt (token) {
-      const parts = token.split('.');
-      if (parts.length !== 3) return null;
-      const payload = parts[1]
-        .replace(/-/g, '+')
-        .replace(/_/g, '/');
-      const decoded = atob(payload);
-      try {
-        return JSON.parse(decoded);
-      } catch (e) {
-        console.error("Erro ao parsear token:", e);
-        return null;
-      }
-    }
-
-    function handleCredentialResponse(response) {
-      const token = response.credential;
-      const data = parseJwt(token);
-
-      if (!data) {
-        showError("Não foi possível validar o login. Tente novamente.");
-        return;
-      }
-
-      const email = data.email;
-      const hd = data.hd;
-      const domainFromEmail = email.split("@")[1];
-
-      if (domainFromEmail !== ALLOWED_DOMAIN && hd !== ALLOWED_DOMAIN) {
-        showError("Este portal é restrito a usuários do domínio " + ALLOWED_DOMAIN + ".");
-        return;
-      }
-
-      showPortal(email);
-    }
-
-    function showError(msg) {
-      const errorDiv = document.getElementById("login-error");
-      errorDiv.textContent = msg;
-      errorDiv.classList.remove("hidden");
-    }
-
-    function showPortal(email) {
-      const loginSection = document.getElementById("login-section");
-      const portalSection = document.getElementById("portal-section");
-      const userInfo = document.getElementById("user-info");
-
-      loginSection.classList.add("hidden");
-      portalSection.classList.remove("hidden");
-
-      userInfo.textContent = "Logado como: " + email;
-
-      renderProcedures(); // Renderiza a primeira vez
-    }
-
-    document.getElementById("logout-btn").addEventListener("click", () => {
-      if (window.google && google.accounts && google.accounts.id) {
-        google.accounts.id.disableAutoSelect();
-      }
-      window.location.reload();
-    });
-
-    // --- Renderização dos procedimentos ---
-
-    const deptFilterEl = document.getElementById("deptFilter");
-    const searchInputEl = document.getElementById("searchInput");
-    const gridEl = document.getElementById("procedures-grid");
-    const emptyStateEl = document.getElementById("empty-state");
-
-    function formatDate(isoDate) {
-      // Converte AAAA-MM-DD em DD/MM/AAAA
-      const [year, month, day] = isoDate.split("-");
-      return `${day}/${month}/${year}`;
-    }
-
-    function renderProcedures() {
-      const deptFilter = deptFilterEl.value;
-      const searchTerm = searchInputEl.value.trim().toLowerCase();
-
-      gridEl.innerHTML = "";
-
-      const filtered = procedures.filter(p => {
-        const matchesDept =
-          deptFilter === "todos" || p.department === deptFilter;
-
-        const text = (p.title + " " + p.summary).toLowerCase();
-        const matchesSearch = searchTerm === "" || text.includes(searchTerm);
-
-        return matchesDept && matchesSearch;
-      });
-
-      if (filtered.length === 0) {
-        emptyStateEl.classList.remove("hidden");
-        return;
-      } else {
-        emptyStateEl.classList.add("hidden");
-      }
-
-      filtered
-        // Ordena por data desc
-        .sort((a, b) => (a.date < b.date ? 1 : -1))
-        .forEach(p => {
-          const card = document.createElement("div");
-          card.className = "procedure-card";
-
-          card.innerHTML = `
-            <img
-              src="${p.thumbnail}"
-              alt="Thumbnail do procedimento"
-              class="procedure-thumb"
-              onerror="this.style.display='none';"
-            />
-            <div class="procedure-meta">
-              <span class="procedure-dept">${p.department}</span>
-              <span>${formatDate(p.date)}</span>
-            </div>
-            <h3 class="procedure-title">${p.title}</h3>
-            <p class="procedure-summary">${p.summary}</p>
-            <div class="procedure-actions">
-              <a href="${p.fileUrl}" target="_blank" rel="noopener noreferrer">
-                <button class="btn">
-                  📄 Baixar PDF
-                </button>
-              </a>
-            </div>
-          `;
-
-          gridEl.appendChild(card);
-        });
-    }
-
-    deptFilterEl.addEventListener("change", renderProcedures);
-    searchInputEl.addEventListener("input", renderProcedures);
-  </script>
-</body>
+  </body>
 </html>
