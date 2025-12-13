@@ -51,24 +51,33 @@
       /*TAGS NATIVAS*/
       body {
         background-color: var(--bgcolor);
-        margin: 0px 0px 36px 0px;
+        margin: 0px 0px 18px 0px;
+        color: var(--txtcolorbranco);
+      }
+      input {
+        display: flex;
+        justify-content: center;
+        text-align: left;
+        width: 100%;
+        padding: 12px;
+        background-color: var(--inputcolor);
+        border: 1px solid var(--bordercolor);
+        border-radius: 8px;
+        font-size: 12px;
+        line-height: 12px;
+        font-family: "Roboto Slab", serif;
         color: var(--txtcolorbranco);
       }
       /*CLASSES*/
       .wrap {
-        width: 800px;
+        width: 600px;
         margin: auto;
-      }
-      .logoHeader {
-        display: flex;
-        justify-content: center;
-        padding: 48px;
       }
       .tituloPagina {
         display: flex;
         justify-content: center;
-        padding: 30px 0px 0px 0px;
-        font-size: 36px;
+        padding: 18px 0px 0px 0px;
+        font-size: 18px;
         font-family: "Roboto Slab", serif;
         font-weight: 700;
         color: var(--txtcolorbranco);
@@ -76,29 +85,36 @@
       .tituloDeptoBar {
         display: flex;
         justify-content: space-between;
-        padding: 30px;
+        padding: 18px;
+        font-size: 18px;
+        font-family: "Roboto Slab", serif;
+        font-weight: 700;
         color: var(--txtcolorbranco);
         background-color: var(--bgcolor3);
         border-top: 1px solid var(--bordercolor);
         border-bottom: 1px solid var(--bordercolor);
-        margin: 30px 0px 0px 0px;
+        margin: 18px 0px 0px 0px;
       }
       .tituloDepto {
-        font-size: 36px;
+        font-size: 18px;
         font-family: "Roboto Slab", serif;
         font-weight: 700;
         color: var(--txtcolorbranco);
       }
+      .logoHeader {
+        display: flex;
+        justify-content: center;
+        padding: 36px;
+      }
       .boxProcedimento {
         display: flex;
         flex-direction: column;
-        padding: 30px;
-        margin-top: 30px;
-        margin-bottom: 30px;
+        padding: 18px;
+        margin-bottom: 18px;
         border: 1px solid var(--bordercolor2);
         background-color: var(--bgcolor2);
         border-radius: 10px;
-        box-shadow: 0px 0px 20px black;
+        box-shadow: 0px 0px 10px black;
       }
       .boxProcedimentoTitleBar {
         display: flex;
@@ -114,36 +130,36 @@
         justify-content: left;
         font-family: "Roboto Slab", serif;
         font-weight: 700;
-        font-size: 36px;
+        font-size: 18px;
         padding: 6px 0px 6px 0px;
       }
       .boxProcedimentoCode {
         display: flex;
         justify-content: center;
-        width: 140px;
+        width: 80px;
         border: 1px solid var(--bordercolor);
         border-radius: 6px;
         font-family: "Roboto Slab", serif;
         font-weight: 400;
-        font-size: 28px;
-        padding: 12px;
+        font-size: 14px;
+        padding: 6px;
         margin-right: 10px;
       }
       .boxProcedimentoDate {
         display: flex;
         justify-content: center;
-        width: 160px;
+        width: 90px;
         border: 1px solid var(--bordercolor);
         border-radius: 6px;
         font-family: "Roboto Slab", serif;
         font-weight: 200;
-        font-size: 28px;
-        padding: 12px;
+        font-size: 14px;
+        padding: 6px;
       }
       .boxProcedimentoResumo {
         font-family: "Roboto Slab", serif;
         font-weight: 100;
-        font-size: 24px;
+        font-size: 14px;
         padding: 0px 0px 14px 0px;
       }
       .linhaH {
@@ -156,9 +172,9 @@
       .botao {
         display: flex;
         justify-content: center;
-        width: 300px;
+        width: 150px;
         padding: 12px;
-        font-size: 28px;
+        font-size: 14px;
         font-family: "Roboto Slab", serif;
         color: var(--txtcolorbranco);
         background-color: var(--btncolorazul);
@@ -208,7 +224,7 @@
         text-decoration: none;
       }
       .brFake {
-        padding: 15px;
+        padding: 9px;
       }
       .footerBar {
         display: flex;
@@ -217,7 +233,7 @@
       }
       .footerText {
         font-family: "Roboto Slab", serif;
-        font-size: 20px;
+        font-size: 14px;
         font-weight: 100;
         color: var(--bordercolor);
       }
@@ -235,7 +251,7 @@
   </head>
   <body>
     <div class="wrap">
-      <div class="logoHeader"><img src="somauma_logo_branca_baixa_cropped.png" width="240px" /></div>
+      <div class="logoHeader"><img src="somauma_logo_branca_baixa_cropped.png" width="120px" /></div>
       <div class="linhaH"></div>
       <div class="tituloPagina">PORTAL DE PROCEDIMENTOS</div>
 
