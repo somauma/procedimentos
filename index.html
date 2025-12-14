@@ -104,6 +104,13 @@
         font-weight: 700;
         color: var(--txtcolorbranco);
       }
+      .tituloDeptoUpDown {
+        align-content: center;
+        font-size: 0.9rem;
+        font-family: "Roboto Slab", serif;
+        font-weight: 700;
+        color: var(--txtcolorbranco);
+      }
       .logoHeader {
         display: flex;
         justify-content: center;
@@ -190,25 +197,6 @@
       .botao:active {
         transform: translateY(1px);
       }
-      .inputSuffix {
-        content: "R$";
-        font-size: 12px;
-        font-family: "Roboto Slab", serif;
-        color: var(--btncolorazul);
-      }
-      .titcollapse {
-        padding: 12px 12px 12px 0px;
-        border-bottom: 1px dashed var(--txtcolorbranco);
-        font-size: 12px;
-        font-family: "Roboto Slab", serif;
-        color: var(--txtcolorbranco);
-        margin-top: 10px;
-        margin-bottom: 10px;
-        cursor: pointer;
-      }
-      .titcollapse:active {
-        transform: translateY(1px);
-      }
       .linha {
         margin-top: 10px;
         margin-bottom: 10px;
@@ -255,7 +243,7 @@
         <summary>
           <span class="tituloDeptoBar" style="background-color: var(--colorFIN3)">
             <span class="tituloDepto">ADMINISTRATIVO / FINANCEIRO</span>
-            <span class="tituloDepto">+ / -</span>
+            <span class="tituloDeptoUpDown">▼▲</span>
           </span>
         </summary>
 
@@ -265,9 +253,12 @@
             <div class="boxProcedimentoTitleBar">
               <div class="boxProcedimentoTitleBox">
                 <div class="boxProcedimentoCode">FIN#001</div>
-                <div class="boxProcedimentoTitle">Procedimento Teste</div>
+
+                <div class="boxProcedimentoDate">01/01/2026</div>
               </div>
-              <div class="boxProcedimentoDate">01/01/2026</div>
+            </div>
+            <div class="boxProcedimentoTitleBar">
+              <div class="boxProcedimentoTitle">Procedimento Teste</div>
             </div>
             <div class="boxProcedimentoResumo">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tempor velit nunc, sed dictum eros
@@ -287,7 +278,7 @@
         <summary>
           <span class="tituloDeptoBar" style="background-color: var(--colorRHU3)">
             <span class="tituloDepto">RECURSOS HUMANOS</span>
-            <span class="tituloDepto">+ / -</span>
+            <span class="tituloDeptoUpDown">▼▲</span>
           </span>
         </summary>
 
@@ -297,9 +288,11 @@
             <div class="boxProcedimentoTitleBar">
               <div class="boxProcedimentoTitleBox">
                 <div class="boxProcedimentoCode">RHU#001</div>
-                <div class="boxProcedimentoTitle">Procedimento Teste</div>
+                <div class="boxProcedimentoDate">01/01/2026</div>
               </div>
-              <div class="boxProcedimentoDate">01/01/2026</div>
+            </div>
+            <div class="boxProcedimentoTitleBar">
+              <div class="boxProcedimentoTitle">Procedimento Teste</div>
             </div>
             <div class="boxProcedimentoResumo">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tempor velit nunc, sed dictum eros
@@ -319,7 +312,7 @@
         <summary>
           <span class="tituloDeptoBar" style="background-color: var(--colorJUR3)">
             <span class="tituloDepto">JURÍDICO</span>
-            <span class="tituloDepto">+ / -</span>
+            <span class="tituloDeptoUpDown">▼▲</span>
           </span>
         </summary>
 
@@ -359,10 +352,13 @@
             <div class="boxProcedimentoTitleBar">
               <div class="boxProcedimentoTitleBox">
                 <div class="boxProcedimentoCode">JUR#002</div>
-                <div class="boxProcedimentoTitle">Cessão de Direitos de Cliente</div>
+                <div class="boxProcedimentoDate">24/11/2025</div>
               </div>
-              <div class="boxProcedimentoDate">24/11/2025</div>
             </div>
+            <div class="boxProcedimentoTitleBar">
+              <div class="boxProcedimentoTitle">Cessão de Direitos de Cliente</div>
+            </div>
+
             <div class="boxProcedimentoResumo">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tempor velit nunc, sed dictum eros
               eleifend eu. Sed mauris velit, porttitor eu tristique quis, ultricies vestibulum enim. Pellentesque nisi
@@ -386,7 +382,7 @@
         <summary>
           <span class="tituloDeptoBar" style="background-color: var(--colorINC3)">
             <span class="tituloDepto">PROJETOS / INCORPORAÇÃO</span>
-            <span class="tituloDepto">+ / -</span>
+            <span class="tituloDeptoUpDown">▼▲</span>
           </span>
         </summary>
 
@@ -396,9 +392,12 @@
             <div class="boxProcedimentoTitleBar">
               <div class="boxProcedimentoTitleBox">
                 <div class="boxProcedimentoCode">INC#001</div>
-                <div class="boxProcedimentoTitle">Procedimento Teste</div>
+                <div class="boxProcedimentoDate">01/01/2026</div>
+            </div>
+                
               </div>
-              <div class="boxProcedimentoDate">01/01/2026</div>
+              <div class="boxProcedimentoTitleBar">
+                <div class="boxProcedimentoTitle">Procedimento Teste</div>
             </div>
             <div class="boxProcedimentoResumo">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tempor velit nunc, sed dictum eros
@@ -418,7 +417,7 @@
         <summary>
           <span class="tituloDeptoBar" style="background-color: var(--colorCOM3)">
             <span class="tituloDepto">COMERCIAL</span>
-            <span class="tituloDepto">+ / -</span>
+            <span class="tituloDeptoUpDown">▼▲</span>
           </span>
         </summary>
 
@@ -428,9 +427,12 @@
             <div class="boxProcedimentoTitleBar">
               <div class="boxProcedimentoTitleBox">
                 <div class="boxProcedimentoCode">COM#001</div>
-                <div class="boxProcedimentoTitle">Procedimento Teste</div>
+                <div class="boxProcedimentoDate">01/01/2026</div>
+            </div>
+                
               </div>
-              <div class="boxProcedimentoDate">01/01/2026</div>
+              <div class="boxProcedimentoTitleBar">
+                <div class="boxProcedimentoTitle">Procedimento Teste</div>
             </div>
             <div class="boxProcedimentoResumo">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tempor velit nunc, sed dictum eros
@@ -450,7 +452,7 @@
         <summary>
           <span class="tituloDeptoBar" style="background-color: var(--colorMKT3)">
             <span class="tituloDepto">MARKETING E COMUNICAÇÃO</span>
-            <span class="tituloDepto">+ / -</span>
+            <span class="tituloDeptoUpDown">▼▲</span>
           </span>
         </summary>
 
@@ -460,9 +462,12 @@
             <div class="boxProcedimentoTitleBar">
               <div class="boxProcedimentoTitleBox">
                 <div class="boxProcedimentoCode">MKT#001</div>
-                <div class="boxProcedimentoTitle">Procedimento Teste</div>
+                <div class="boxProcedimentoDate">01/01/2026</div>
+            </div>
+                
               </div>
-              <div class="boxProcedimentoDate">01/01/2026</div>
+              <div class="boxProcedimentoTitleBar">
+                <div class="boxProcedimentoTitle">Procedimento Teste</div>
             </div>
             <div class="boxProcedimentoResumo">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tempor velit nunc, sed dictum eros
@@ -482,7 +487,7 @@
         <summary>
           <span class="tituloDeptoBar" style="background-color: var(--colorENG3)">
             <span class="tituloDepto">ENGENHARIA / CONSTRUÇÃO</span>
-            <span class="tituloDepto">+ / -</span>
+            <span class="tituloDeptoUpDown">▼▲</span>
           </span>
         </summary>
 
@@ -492,9 +497,12 @@
             <div class="boxProcedimentoTitleBar">
               <div class="boxProcedimentoTitleBox">
                 <div class="boxProcedimentoCode">ENG#001</div>
-                <div class="boxProcedimentoTitle">Procedimento Teste</div>
+                <div class="boxProcedimentoDate">01/01/2026</div>
+            </div>
+                
               </div>
-              <div class="boxProcedimentoDate">01/01/2026</div>
+              <div class="boxProcedimentoTitleBar">
+                <div class="boxProcedimentoTitle">Procedimento Teste</div>
             </div>
             <div class="boxProcedimentoResumo">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tempor velit nunc, sed dictum eros
@@ -514,7 +522,7 @@
         <summary>
           <span class="tituloDeptoBar" style="background-color: var(--colorSAC3)">
             <span class="tituloDepto">SAC / ASSISTÊNCIA TÉCNICA</span>
-            <span class="tituloDepto">+ / -</span>
+            <span class="tituloDeptoUpDown">▼▲</span>
           </span>
         </summary>
 
@@ -524,9 +532,12 @@
             <div class="boxProcedimentoTitleBar">
               <div class="boxProcedimentoTitleBox">
                 <div class="boxProcedimentoCode">SAC#001</div>
-                <div class="boxProcedimentoTitle">Procedimento Teste</div>
+                <div class="boxProcedimentoDate">01/01/2026</div>
+            </div>
+                
               </div>
-              <div class="boxProcedimentoDate">01/01/2026</div>
+              <div class="boxProcedimentoTitleBar">
+                <div class="boxProcedimentoTitle">Procedimento Teste</div>
             </div>
             <div class="boxProcedimentoResumo">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tempor velit nunc, sed dictum eros
