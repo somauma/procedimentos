@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Somauma | Portal de Procedimentos</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;600;700&display=swap"
@@ -49,6 +50,14 @@
       }
 
       /*TAGS NATIVAS*/
+      html{
+        font-size: 14px;
+      }
+      @media only screen and (min-width 600px) {
+        html {
+          font-size: 20px;
+        }
+      }
       body {
         background-color: var(--bgcolor);
         margin: 0px 0px 18px 0px;
@@ -227,7 +236,7 @@
       }
       .footerText {
         font-family: "Roboto Slab", serif;
-        font-size: 14px;
+        font-size: 1.1rem;
         font-weight: 100;
         color: var(--bordercolor);
       }
