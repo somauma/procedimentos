@@ -13,13 +13,15 @@
         --bgcolor: #1e2129;
         --bgcolor2: #1d242b;
         --bgcolor3: #2e363e;
-        --inputcolor: #2e363e;
         --bordercolor: #595b61;
         --bordercolor2: #454850;
         --txtcolorbranco: #ffffff;
         --txtcolorcinza: #2e363e;
+        --txtcolor1: #68727c;
         --btncolorescuro: #1c2026;
         --btncolorazul: #2b6bf3;
+        --btncolorSave: #ffffff;
+        --btncolorCancel: #ffffff;
         --colorFIN1: #ea4747ff;
         --colorFIN2: #ea47471a;
         --colorFIN3: #ea47473d;
@@ -77,12 +79,31 @@
       summary::marker {
         content: "";
       }
-      ul, ol, li {
+      ul,
+      ol,
+      li {
         list-style: none;
         list-style-type: none;
       }
       summary:active {
         transform: translateY(1px);
+      }
+      input, select, textarea {
+        color: white;
+        font-family: "Roboto Slab", serif;
+        font-size: 1.1rem;
+        padding: 4px;
+        margin-bottom: 0.6rem;
+        background-color: var(--bgcolor2);
+        border: 1px solid var(--bordercolor);
+        border-radius: 0.4rem;
+        box-shadow: none;
+        outline: none;
+        -webkit-box-shadow: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background-clip: padding-box;
       }
       /*CLASSES*/
       .wrap {
@@ -94,11 +115,71 @@
       .tituloPagina {
         display: flex;
         justify-content: center;
-        padding: 18px 0px 0px 0px;
+        padding: 18px 0px 18px 0px;
         font-size: 1.6rem;
         font-family: "Roboto Slab", serif;
         font-weight: 700;
         color: var(--txtcolorbranco);
+      }
+      .inputFormBar {
+        display: flex;
+        flex-direction: column;
+        padding: 18px 0px 0px 0px;
+      }
+      .inputFormBox {
+        display: flex;
+        flex-direction: column;
+        padding: 18px;
+        border: 1px solid var(--bordercolor2);
+        border-radius: 0.6rem;
+        background-color: var(--bgcolor3);
+        box-shadow: 0px 0px 10px black;
+      }
+      .inputDateBar {
+        display: flex;
+        gap: 6px;
+        justify-content: space-between;
+      }
+      .inputLabel {
+        font-family: "Roboto Slab", serif;
+        font-size: 1.1rem;
+        margin-bottom: 0.4rem;
+        color: var(--txtcolor1);
+      }
+      .inputActionsBar {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 0.4rem;
+        gap: 6px;
+      }
+      .botaoOkActionsBar {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        padding: 12px;
+        font-size: 1.1rem;
+        font-family: "Roboto Slab", serif;
+        color: var(--txtcolorbranco);
+        background-color: #006bff;
+        border-radius: 0.4rem;
+        cursor: pointer;
+        text-decoration: none;
+      }
+      .botaoCancelActionsBar {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        padding: 12px;
+        font-size: 1.1rem;
+        font-family: "Roboto Slab", serif;
+        color: var(--txtcolorbranco);
+        background-color: #ff0057;
+        border-radius: 0.4rem;
+        cursor: pointer;
+        text-decoration: none;
+      }
+      .botaoOkActionsBar:active, .botaoCancelActionsBar:active {
+        transform: translateY(1px);
       }
       .tituloDeptoBar {
         display: flex;
@@ -208,25 +289,6 @@
       .botao:active {
         transform: translateY(1px);
       }
-      .linha {
-        margin-top: 10px;
-        margin-bottom: 10px;
-      }
-      .gridInput {
-        display: grid;
-        grid-template-columns: 1fr 2fr 36px;
-        grid-template-rows: 36px;
-        gap: 6px;
-      }
-      .labelInput {
-        display: flex;
-        padding: 12px 12px 12px 0px;
-        font-size: 12px;
-        line-height: 12px;
-        font-family: "Roboto Slab", serif;
-        color: var(--txtcolorbranco);
-        text-decoration: none;
-      }
       .brFake {
         padding: 9px;
       }
@@ -248,6 +310,9 @@
       <div class="logoHeader"><img src="somauma_logo_branca_baixa_cropped.png" width="120px" /></div>
       <div class="linhaH"></div>
       <div class="tituloPagina">PORTAL DE PROCEDIMENTOS</div>
+      <div class="linhaH"></div>
+
+      
 
       <!--ADMINISTRATIVO / FINANCEIRO-->
       <details>
@@ -282,7 +347,7 @@
           </div>
         </div>
         <!-- Fim Procedimento-->
-        
+
         <!-- Início Procedimento-->
         <div class="container">
           <div class="boxProcedimento" style="background-color: var(--colorFIN2)">
@@ -301,13 +366,10 @@
               eleifend eu. Sed mauris velit, porttitor eu tristique quis, ultricies vestibulum enim. Pellentesque nisi
               tortor, blandit sit amet lectus in, congue interdum mauris.
             </div>
-            <div class="linha">
-              <a href="" class="botao" style="background-color: var(--colorFIN1)">Ver Procedimento</a>
-            </div>
+            <a href="" class="botao" style="background-color: var(--colorFIN1)">Ver Procedimento</a>
           </div>
         </div>
         <!-- Fim Procedimento-->
-        
       </details>
 
       <!--RECURSOS HUMANOS-->
@@ -336,9 +398,7 @@
               eleifend eu. Sed mauris velit, porttitor eu tristique quis, ultricies vestibulum enim. Pellentesque nisi
               tortor, blandit sit amet lectus in, congue interdum mauris.
             </div>
-            <div class="linha">
-              <a href="" class="botao" style="background-color: var(--colorRHU1)">Ver Procedimento</a>
-            </div>
+            <a href="" class="botao" style="background-color: var(--colorRHU1)">Ver Procedimento</a>
           </div>
         </div>
         <!-- Fim Procedimento-->
@@ -371,14 +431,12 @@
               eleifend eu. Sed mauris velit, porttitor eu tristique quis, ultricies vestibulum enim. Pellentesque nisi
               tortor, blandit sit amet lectus in, congue interdum mauris.
             </div>
-            <div class="linha">
-              <a
-                href="https://drive.google.com/open?id=1Tz8tCjeT3XH9MJIB9vVkbzc6HiDtXguV&usp=drive_fs"
-                class="botao"
-                style="background-color: var(--colorJUR1)"
-                >Ver Procedimento</a
-              >
-            </div>
+            <a
+              href="https://drive.google.com/open?id=1Tz8tCjeT3XH9MJIB9vVkbzc6HiDtXguV&usp=drive_fs"
+              class="botao"
+              style="background-color: var(--colorJUR1)"
+              >Ver Procedimento</a
+            >
           </div>
         </div>
         <!-- Fim Procedimento-->
@@ -401,14 +459,12 @@
               eleifend eu. Sed mauris velit, porttitor eu tristique quis, ultricies vestibulum enim. Pellentesque nisi
               tortor, blandit sit amet lectus in, congue interdum mauris.
             </div>
-            <div class="linha">
-              <a
-                href="https://drive.google.com/open?id=1-D44vf-hSNxYUi9L1TGnhM8WiviAbg-M&usp=drive_fs"
-                class="botao"
-                style="background-color: var(--colorJUR1)"
-                >Ver Procedimento</a
-              >
-            </div>
+            <a
+              href="https://drive.google.com/open?id=1-D44vf-hSNxYUi9L1TGnhM8WiviAbg-M&usp=drive_fs"
+              class="botao"
+              style="background-color: var(--colorJUR1)"
+              >Ver Procedimento</a
+            >
           </div>
         </div>
         <!-- Fim Procedimento-->
@@ -430,20 +486,17 @@
               <div class="boxProcedimentoTitleBox">
                 <div class="boxProcedimentoCode">INC#001</div>
                 <div class="boxProcedimentoDate">01/01/2026</div>
-            </div>
-                
               </div>
-              <div class="boxProcedimentoTitleBar">
-                <div class="boxProcedimentoTitle">Procedimento Teste</div>
+            </div>
+            <div class="boxProcedimentoTitleBar">
+              <div class="boxProcedimentoTitle">Procedimento Teste</div>
             </div>
             <div class="boxProcedimentoResumo">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tempor velit nunc, sed dictum eros
               eleifend eu. Sed mauris velit, porttitor eu tristique quis, ultricies vestibulum enim. Pellentesque nisi
               tortor, blandit sit amet lectus in, congue interdum mauris.
             </div>
-            <div class="linha">
-              <a href="" class="botao" style="background-color: var(--colorINC1)">Ver Procedimento</a>
-            </div>
+            <a href="" class="botao" style="background-color: var(--colorINC1)">Ver Procedimento</a>
           </div>
         </div>
         <!-- Fim Procedimento-->
@@ -465,20 +518,17 @@
               <div class="boxProcedimentoTitleBox">
                 <div class="boxProcedimentoCode">COM#001</div>
                 <div class="boxProcedimentoDate">01/01/2026</div>
-            </div>
-                
               </div>
-              <div class="boxProcedimentoTitleBar">
-                <div class="boxProcedimentoTitle">Procedimento Teste</div>
+            </div>
+            <div class="boxProcedimentoTitleBar">
+              <div class="boxProcedimentoTitle">Procedimento Teste</div>
             </div>
             <div class="boxProcedimentoResumo">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tempor velit nunc, sed dictum eros
               eleifend eu. Sed mauris velit, porttitor eu tristique quis, ultricies vestibulum enim. Pellentesque nisi
               tortor, blandit sit amet lectus in, congue interdum mauris.
             </div>
-            <div class="linha">
-              <a href="" class="botao" style="background-color: var(--colorCOM1)">Ver Procedimento</a>
-            </div>
+            <a href="" class="botao" style="background-color: var(--colorCOM1)">Ver Procedimento</a>
           </div>
         </div>
         <!-- Fim Procedimento-->
@@ -488,7 +538,7 @@
       <details>
         <summary>
           <span class="tituloDeptoBar" style="background-color: var(--colorMKT3)">
-            <span class="tituloDepto">MARKETING E COMUNICAÇÃO</span>
+            <span class="tituloDepto">MARKETING / COMUNICAÇÃO</span>
             <span class="tituloDeptoUpDown">▼▲</span>
           </span>
         </summary>
@@ -500,20 +550,17 @@
               <div class="boxProcedimentoTitleBox">
                 <div class="boxProcedimentoCode">MKT#001</div>
                 <div class="boxProcedimentoDate">01/01/2026</div>
-            </div>
-                
               </div>
-              <div class="boxProcedimentoTitleBar">
-                <div class="boxProcedimentoTitle">Procedimento Teste</div>
+            </div>
+            <div class="boxProcedimentoTitleBar">
+              <div class="boxProcedimentoTitle">Procedimento Teste</div>
             </div>
             <div class="boxProcedimentoResumo">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tempor velit nunc, sed dictum eros
               eleifend eu. Sed mauris velit, porttitor eu tristique quis, ultricies vestibulum enim. Pellentesque nisi
               tortor, blandit sit amet lectus in, congue interdum mauris.
             </div>
-            <div class="linha">
-              <a href="" class="botao" style="background-color: var(--colorMKT1)">Ver Procedimento</a>
-            </div>
+            <a href="" class="botao" style="background-color: var(--colorMKT1)">Ver Procedimento</a>
           </div>
         </div>
         <!-- Fim Procedimento-->
@@ -535,20 +582,17 @@
               <div class="boxProcedimentoTitleBox">
                 <div class="boxProcedimentoCode">ENG#001</div>
                 <div class="boxProcedimentoDate">01/01/2026</div>
-            </div>
-                
               </div>
-              <div class="boxProcedimentoTitleBar">
-                <div class="boxProcedimentoTitle">Procedimento Teste</div>
+            </div>
+            <div class="boxProcedimentoTitleBar">
+              <div class="boxProcedimentoTitle">Procedimento Teste</div>
             </div>
             <div class="boxProcedimentoResumo">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tempor velit nunc, sed dictum eros
               eleifend eu. Sed mauris velit, porttitor eu tristique quis, ultricies vestibulum enim. Pellentesque nisi
               tortor, blandit sit amet lectus in, congue interdum mauris.
             </div>
-            <div class="linha">
-              <a href="" class="botao" style="background-color: var(--colorENG1)">Ver Procedimento</a>
-            </div>
+            <a href="" class="botao" style="background-color: var(--colorENG1)">Ver Procedimento</a>
           </div>
         </div>
         <!-- Fim Procedimento-->
@@ -570,25 +614,113 @@
               <div class="boxProcedimentoTitleBox">
                 <div class="boxProcedimentoCode">SAC#001</div>
                 <div class="boxProcedimentoDate">01/01/2026</div>
-            </div>
-                
               </div>
-              <div class="boxProcedimentoTitleBar">
-                <div class="boxProcedimentoTitle">Procedimento Teste</div>
+            </div>
+            <div class="boxProcedimentoTitleBar">
+              <div class="boxProcedimentoTitle">Procedimento Teste</div>
             </div>
             <div class="boxProcedimentoResumo">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris tempor velit nunc, sed dictum eros
               eleifend eu. Sed mauris velit, porttitor eu tristique quis, ultricies vestibulum enim. Pellentesque nisi
               tortor, blandit sit amet lectus in, congue interdum mauris.
             </div>
-            <div class="linha">
-              <a href="" class="botao" style="background-color: var(--colorSAC1)">Ver Procedimento</a>
-            </div>
+            <a href="" class="botao" style="background-color: var(--colorSAC1)">Ver Procedimento</a>
           </div>
         </div>
         <!-- Fim Procedimento-->
       </details>
 
+      <!--FORMULÁRIO DE INPUT-->
+      <div class="inputFormBar">
+        <details>
+          <summary>
+            <a class="botao" style="border: 1px solid var(--bordercolor2); background-color: var(--bgcolor); width: 100%;">Novo Procedimento</a>
+          </summary>
+          <div class="brFake"></div>
+
+          <div class="inputFormBox">
+          <label class="inputLabel">Departamento:</label>
+          <select>
+            <option value="ADM">Administrativo / Financeiro</option>
+            <option value="RHU">Recursos Humanos</option>
+            <option value="JUR">Jurídico</option>
+            <option value="INC">Projetos / Incorporação</option>
+            <option value="COM">Comercial</option>
+            <option value="MKT">Marketing / Comunicação</option>
+            <option value="ENG">Engenharia / Construção</option>
+            <option value="SAC">SAC / Assistência Técnica</option>
+          </select>
+            <label class="inputLabel">Código:</label><input />
+          <label class="inputLabel">Data de Publicação:</label>
+          <div class="inputDateBar">
+            <select style="width: 100%">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+              <option value="21">21</option>
+              <option value="22">22</option>
+              <option value="23">23</option>
+              <option value="24">24</option>
+              <option value="25">25</option>
+              <option value="26">26</option>
+              <option value="27">27</option>
+              <option value="28">28</option>
+              <option value="29">29</option>
+              <option value="30">30</option>
+              <option value="31">31</option>
+            </select>
+            <select style="width: 100%">
+              <option value="JAN">Janeiro</option>
+              <option value="FEV">Fevereiro</option>
+              <option value="MAR">Março</option>
+              <option value="ABR">Abril</option>
+              <option value="MAI">Maio</option>
+              <option value="JUN">Junho</option>
+              <option value="JUL">Julho</option>
+              <option value="AGO">Agosto</option>
+              <option value="SET">Setembro</option>
+              <option value="OUT">Outubro</option>
+              <option value="NOV">Novembro</option>
+              <option value="DEZ">Dezembro</option>
+            </select>
+            <select style="width: 100%">
+              <option value="2025">2025</option>
+              <option value="2024">2024</option>
+              <option value="2023">2023</option>
+              <option value="2022">2022</option>
+              <option value="2021">2021</option>
+              <option value="2020">2020</option>
+            </select>
+          </div>
+          <label class="inputLabel">Título do Procedimento:</label><input />
+          <label class="inputLabel">Resumo do Procedimento:</label>
+          <textarea rows="4"></textarea>
+          <label class="inputLabel">Link do Documento:</label><input />
+            <div class="inputActionsBar">
+            <a class="botaoOkActionsBar">Publicar</a>
+              <a class="botaoCancelActionsBar">Cancelar</a>
+              </div>
+          </div>
+        </details>
+      </div>
+      
       <div class="brFake"></div>
       <div class="linhaH"></div>
       <div class="footerBar">
