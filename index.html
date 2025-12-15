@@ -20,8 +20,8 @@
         --txtcolor1: #68727c;
         --btncolorescuro: #1c2026;
         --btncolorazul: #2b6bf3;
-        --btncolorSave: #ffffff;
-        --btncolorCancel: #ffffff;
+        --btncolorSave: #006bff;
+        --btncolorCancel: #ff0057;
         --colorFIN1: #ea4747ff;
         --colorFIN2: #ea47471a;
         --colorFIN3: #ea47473d;
@@ -88,7 +88,9 @@
       summary:active {
         transform: translateY(1px);
       }
-      input, select, textarea {
+      input,
+      select,
+      textarea {
         color: white;
         font-family: "Roboto Slab", serif;
         font-size: 1.1rem;
@@ -178,7 +180,8 @@
         cursor: pointer;
         text-decoration: none;
       }
-      .botaoOkActionsBar:active, .botaoCancelActionsBar:active {
+      .botaoOkActionsBar:active,
+      .botaoCancelActionsBar:active {
         transform: translateY(1px);
       }
       .tituloDeptoBar {
@@ -226,6 +229,7 @@
       }
       .boxProcedimentoTitleBox {
         display: flex;
+        gap: 9px;
       }
       .boxProcedimentoTitle {
         display: flex;
@@ -246,7 +250,7 @@
         font-weight: 400;
         font-size: 1.1rem;
         padding: 6px;
-        margin-right: 10px;
+        background-color:;
       }
       .boxProcedimentoDate {
         display: flex;
@@ -259,6 +263,22 @@
         font-weight: 400;
         font-size: 1.1rem;
         padding: 6px;
+      }
+      .boxProcedimentoDelete {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 2.5rem;
+        border-radius: 0.5rem;
+        font-family: "Arial", serif;
+        font-weight: 700;
+        font-size: 1.1rem;
+        padding: 6px;
+        background-color: #ffffff3d;
+        cursor: pointer;
+      }
+      .boxProcedimentoDelete:active {
+        transform: translateY(1px);
       }
       .boxProcedimentoResumo {
         font-family: "Roboto Slab", serif;
@@ -312,8 +332,6 @@
       <div class="tituloPagina">PORTAL DE PROCEDIMENTOS</div>
       <div class="linhaH"></div>
 
-      
-
       <!--ADMINISTRATIVO / FINANCEIRO-->
       <details>
         <summary>
@@ -329,9 +347,9 @@
             <div class="boxProcedimentoTitleBar">
               <div class="boxProcedimentoTitleBox">
                 <div class="boxProcedimentoCode">FIN#001</div>
-
                 <div class="boxProcedimentoDate">01/01/2026</div>
               </div>
+              <div class="boxProcedimentoDelete">⨉</div>
             </div>
             <div class="boxProcedimentoTitleBar">
               <div class="boxProcedimentoTitle">Procedimento Teste</div>
@@ -354,9 +372,9 @@
             <div class="boxProcedimentoTitleBar">
               <div class="boxProcedimentoTitleBox">
                 <div class="boxProcedimentoCode">FIN#002</div>
-
                 <div class="boxProcedimentoDate">01/01/2026</div>
               </div>
+              <div class="boxProcedimentoDelete">⨉</div>
             </div>
             <div class="boxProcedimentoTitleBar">
               <div class="boxProcedimentoTitle">Procedimento Teste</div>
@@ -389,6 +407,7 @@
                 <div class="boxProcedimentoCode">RHU#001</div>
                 <div class="boxProcedimentoDate">01/01/2026</div>
               </div>
+              <div class="boxProcedimentoDelete">⨉</div>
             </div>
             <div class="boxProcedimentoTitleBar">
               <div class="boxProcedimentoTitle">Procedimento Teste</div>
@@ -421,6 +440,7 @@
                 <div class="boxProcedimentoCode">JUR#001</div>
                 <div class="boxProcedimentoDate">24/11/2025</div>
               </div>
+              <div class="boxProcedimentoDelete">⨉</div>
             </div>
             <div class="boxProcedimentoTitleBar">
               <div class="boxProcedimentoTitle">Análise de Contrato</div>
@@ -449,6 +469,7 @@
                 <div class="boxProcedimentoCode">JUR#002</div>
                 <div class="boxProcedimentoDate">24/11/2025</div>
               </div>
+              <div class="boxProcedimentoDelete">⨉</div>
             </div>
             <div class="boxProcedimentoTitleBar">
               <div class="boxProcedimentoTitle">Cessão de Direitos de Cliente</div>
@@ -487,6 +508,7 @@
                 <div class="boxProcedimentoCode">INC#001</div>
                 <div class="boxProcedimentoDate">01/01/2026</div>
               </div>
+              <div class="boxProcedimentoDelete">⨉</div>
             </div>
             <div class="boxProcedimentoTitleBar">
               <div class="boxProcedimentoTitle">Procedimento Teste</div>
@@ -519,6 +541,7 @@
                 <div class="boxProcedimentoCode">COM#001</div>
                 <div class="boxProcedimentoDate">01/01/2026</div>
               </div>
+              <div class="boxProcedimentoDelete">⨉</div>
             </div>
             <div class="boxProcedimentoTitleBar">
               <div class="boxProcedimentoTitle">Procedimento Teste</div>
@@ -551,6 +574,7 @@
                 <div class="boxProcedimentoCode">MKT#001</div>
                 <div class="boxProcedimentoDate">01/01/2026</div>
               </div>
+              <div class="boxProcedimentoDelete">⨉</div>
             </div>
             <div class="boxProcedimentoTitleBar">
               <div class="boxProcedimentoTitle">Procedimento Teste</div>
@@ -583,6 +607,7 @@
                 <div class="boxProcedimentoCode">ENG#001</div>
                 <div class="boxProcedimentoDate">01/01/2026</div>
               </div>
+              <div class="boxProcedimentoDelete">⨉</div>
             </div>
             <div class="boxProcedimentoTitleBar">
               <div class="boxProcedimentoTitle">Procedimento Teste</div>
@@ -615,6 +640,7 @@
                 <div class="boxProcedimentoCode">SAC#001</div>
                 <div class="boxProcedimentoDate">01/01/2026</div>
               </div>
+              <div class="boxProcedimentoDelete">⨉</div>
             </div>
             <div class="boxProcedimentoTitleBar">
               <div class="boxProcedimentoTitle">Procedimento Teste</div>
@@ -634,93 +660,97 @@
       <div class="inputFormBar">
         <details>
           <summary>
-            <a class="botao" style="border: 1px solid var(--bordercolor2); background-color: var(--bgcolor); width: 100%;">Novo Procedimento</a>
+            <a
+              class="botao"
+              style="border: 1px solid var(--bordercolor2); background-color: var(--bgcolor); width: 100%"
+              >Novo Procedimento</a
+            >
           </summary>
           <div class="brFake"></div>
 
           <div class="inputFormBox">
-          <label class="inputLabel">Departamento:</label>
-          <select>
-            <option value="ADM">Administrativo / Financeiro</option>
-            <option value="RHU">Recursos Humanos</option>
-            <option value="JUR">Jurídico</option>
-            <option value="INC">Projetos / Incorporação</option>
-            <option value="COM">Comercial</option>
-            <option value="MKT">Marketing / Comunicação</option>
-            <option value="ENG">Engenharia / Construção</option>
-            <option value="SAC">SAC / Assistência Técnica</option>
-          </select>
+            <label class="inputLabel">Departamento:</label>
+            <select>
+              <option value="ADM">Administrativo / Financeiro</option>
+              <option value="RHU">Recursos Humanos</option>
+              <option value="JUR">Jurídico</option>
+              <option value="INC">Projetos / Incorporação</option>
+              <option value="COM">Comercial</option>
+              <option value="MKT">Marketing / Comunicação</option>
+              <option value="ENG">Engenharia / Construção</option>
+              <option value="SAC">SAC / Assistência Técnica</option>
+            </select>
             <label class="inputLabel">Código:</label><input />
-          <label class="inputLabel">Data de Publicação:</label>
-          <div class="inputDateBar">
-            <select style="width: 100%">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
-              <option value="13">13</option>
-              <option value="14">14</option>
-              <option value="15">15</option>
-              <option value="16">16</option>
-              <option value="17">17</option>
-              <option value="18">18</option>
-              <option value="19">19</option>
-              <option value="20">20</option>
-              <option value="21">21</option>
-              <option value="22">22</option>
-              <option value="23">23</option>
-              <option value="24">24</option>
-              <option value="25">25</option>
-              <option value="26">26</option>
-              <option value="27">27</option>
-              <option value="28">28</option>
-              <option value="29">29</option>
-              <option value="30">30</option>
-              <option value="31">31</option>
-            </select>
-            <select style="width: 100%">
-              <option value="JAN">Janeiro</option>
-              <option value="FEV">Fevereiro</option>
-              <option value="MAR">Março</option>
-              <option value="ABR">Abril</option>
-              <option value="MAI">Maio</option>
-              <option value="JUN">Junho</option>
-              <option value="JUL">Julho</option>
-              <option value="AGO">Agosto</option>
-              <option value="SET">Setembro</option>
-              <option value="OUT">Outubro</option>
-              <option value="NOV">Novembro</option>
-              <option value="DEZ">Dezembro</option>
-            </select>
-            <select style="width: 100%">
-              <option value="2025">2025</option>
-              <option value="2024">2024</option>
-              <option value="2023">2023</option>
-              <option value="2022">2022</option>
-              <option value="2021">2021</option>
-              <option value="2020">2020</option>
-            </select>
-          </div>
-          <label class="inputLabel">Título do Procedimento:</label><input />
-          <label class="inputLabel">Resumo do Procedimento:</label>
-          <textarea rows="4"></textarea>
-          <label class="inputLabel">Link do Documento:</label><input />
+            <label class="inputLabel">Data de Publicação:</label>
+            <div class="inputDateBar">
+              <select style="width: 100%">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+                <option value="24">24</option>
+                <option value="25">25</option>
+                <option value="26">26</option>
+                <option value="27">27</option>
+                <option value="28">28</option>
+                <option value="29">29</option>
+                <option value="30">30</option>
+                <option value="31">31</option>
+              </select>
+              <select style="width: 100%">
+                <option value="JAN">Janeiro</option>
+                <option value="FEV">Fevereiro</option>
+                <option value="MAR">Março</option>
+                <option value="ABR">Abril</option>
+                <option value="MAI">Maio</option>
+                <option value="JUN">Junho</option>
+                <option value="JUL">Julho</option>
+                <option value="AGO">Agosto</option>
+                <option value="SET">Setembro</option>
+                <option value="OUT">Outubro</option>
+                <option value="NOV">Novembro</option>
+                <option value="DEZ">Dezembro</option>
+              </select>
+              <select style="width: 100%">
+                <option value="2025">2025</option>
+                <option value="2024">2024</option>
+                <option value="2023">2023</option>
+                <option value="2022">2022</option>
+                <option value="2021">2021</option>
+                <option value="2020">2020</option>
+              </select>
+            </div>
+            <label class="inputLabel">Título do Procedimento:</label><input />
+            <label class="inputLabel">Resumo do Procedimento:</label>
+            <textarea rows="4"></textarea>
+            <label class="inputLabel">Link do Documento:</label><input />
             <div class="inputActionsBar">
-            <a class="botaoOkActionsBar">Publicar</a>
+              <a class="botaoOkActionsBar">Publicar</a>
               <a class="botaoCancelActionsBar">Cancelar</a>
-              </div>
+            </div>
           </div>
         </details>
       </div>
-      
+
       <div class="brFake"></div>
       <div class="linhaH"></div>
       <div class="footerBar">
