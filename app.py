@@ -3,7 +3,7 @@ import sqlite3
 from flask import Flask, request, jsonify, send_file, abort
 
 APP_DIR = os.path.dirname(os.path.abspath(__file__))
-DB_PATH = os.path.join(APP_DIR, "database.db")
+DB_PATH = os.environ.get("SQLITE_DB_PATH", os.path.join(APP_DIR, "database.db"))
 
 app = Flask(__name__)
 
