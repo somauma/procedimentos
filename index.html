@@ -544,6 +544,8 @@
         const resumo = escapeHtml(p.resumo);
         const link = escapeHtml(p.link);
         const data = escapeHtml(formatDateBR(p.data_publicacao));
+        const API_BASE = "https://procedimentos-37ui.onrender.com";
+
 
         return `
           <div class="boxProcedimento" style="background-color: var(--color${depto}2)">
@@ -573,7 +575,7 @@
       }
 
       async function carregarTudo() {
-        const res = await fetch("/api/procedimentos");
+        const res = await fetch(`${API_BASE}/api/procedimentos`);
         if (!res.ok) return;
 
         const lista = await res.json();
@@ -615,7 +617,7 @@
 
         const data_publicacao = `${ano}-${MES_MAP[mes]}-${String(dia).padStart(2, "0")}`;
 
-        const res = await fetch("/api/procedimentos", {
+        const res = await fetch(`${API_BASE}/api/procedimentos`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ departamento, codigo, data_publicacao, titulo, resumo, link })
@@ -635,7 +637,7 @@
         const ok = confirm("Excluir este procedimento?");
         if (!ok) return;
 
-        const res = await fetch(`/api/procedimentos/${id}`, { method: "DELETE" });
+        const res = await fetch(`${API_BASE}/api/procedimentos/${id}`, { method: "DELETE" });
         if (!res.ok) {
           alert("Erro ao excluir.");
           return;

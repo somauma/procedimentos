@@ -7,6 +7,23 @@ DB_PATH = os.environ.get("SQLITE_DB_PATH", os.path.join(APP_DIR, "database.db"))
 
 app = Flask(__name__)
 
+GITHUB_PAGES_ORIGIN = "https://somauma.github.io"
+
+@app.after_request
+def add_cors_headers(response):
+    origin = request.headers.get("Origin", "")
+    if origin == GITHUB_PAGES_ORIGIN:
+        response.headers["Access-Control-Allow-Origin"] = origin
+        response.headers["Vary"] = "Origin"
+        response.headers["Access-Control-Allow-Methods"] = "GET,POST,DELETE,OPTIONS"
+        response.headers["Access-Control-Allow-Headers"] = "Content-Type"
+    return response
+
+@app.route("/api/<path:_>", methods=["OPTIONS"])
+def cors_preflight(_):
+    # Responde preflight do browser
+    return ("", 204)
+
 
 def get_db():
     conn = sqlite3.connect(DB_PATH)
