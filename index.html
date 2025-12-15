@@ -517,13 +517,15 @@
     </div>
 
     <script>
+      // IMPORTANTE: frontend está no GitHub Pages; backend/API está no Render
+      const API_BASE = "https://procedimentos-37ui.onrender.com";
+
       const MES_MAP = {
         JAN: "01", FEV: "02", MAR: "03", ABR: "04", MAI: "05", JUN: "06",
         JUL: "07", AGO: "08", SET: "09", OUT: "10", NOV: "11", DEZ: "12"
       };
 
       function formatDateBR(iso) {
-        // iso: "YYYY-MM-DD"
         const [y, m, d] = iso.split("-");
         return `${d}/${m}/${y}`;
       }
@@ -544,8 +546,6 @@
         const resumo = escapeHtml(p.resumo);
         const link = escapeHtml(p.link);
         const data = escapeHtml(formatDateBR(p.data_publicacao));
-        const API_BASE = "https://procedimentos-37ui.onrender.com";
-
 
         return `
           <div class="boxProcedimento" style="background-color: var(--color${depto}2)">
@@ -575,26 +575,34 @@
       }
 
       async function carregarTudo() {
-        const res = await fetch(`${API_BASE}/api/procedimentos`);
-        if (!res.ok) return;
+        try {
+          const res = await fetch(`${API_BASE}/api/procedimentos`);
+          const text = await res.text();
 
-        const lista = await res.json();
+          if (!res.ok) {
+            alert(`Erro ao carregar lista (HTTP ${res.status}).\n\n${text.slice(0, 400)}`);
+            return;
+          }
 
-        // limpa containers
-        ["FIN","RHU","JUR","INC","COM","MKT","ENG","SAC"].forEach(d => {
-          const el = document.getElementById(`lista-${d}`);
-          if (el) el.innerHTML = "";
-        });
+          const lista = JSON.parse(text);
 
-        // injeta por departamento
-        for (const p of lista) {
-          const alvo = document.getElementById(`lista-${p.departamento}`);
-          if (!alvo) continue;
+          ["FIN","RHU","JUR","INC","COM","MKT","ENG","SAC"].forEach(d => {
+            const el = document.getElementById(`lista-${d}`);
+            if (el) el.innerHTML = "";
+          });
 
-          const wrap = document.createElement("div");
-          wrap.className = "container";
-          wrap.innerHTML = cardProcedimento(p);
-          alvo.appendChild(wrap);
+          for (const p of lista) {
+            const alvo = document.getElementById(`lista-${p.departamento}`);
+            if (!alvo) continue;
+
+            const wrap = document.createElement("div");
+            wrap.className = "container";
+            wrap.innerHTML = cardProcedimento(p);
+            alvo.appendChild(wrap);
+          }
+        } catch (err) {
+          alert("Falha de rede/CORS ao carregar lista.\n\n" + (err?.message || err));
+          console.error(err);
         }
       }
 
@@ -606,43 +614,65 @@
       }
 
       async function criarProcedimento() {
-        const departamento = document.getElementById("f-departamento").value;
-        const codigo = document.getElementById("f-codigo").value.trim();
-        const dia = document.getElementById("f-dia").value;
-        const mes = document.getElementById("f-mes").value;
-        const ano = document.getElementById("f-ano").value;
-        const titulo = document.getElementById("f-titulo").value.trim();
-        const resumo = document.getElementById("f-resumo").value.trim();
-        const link = document.getElementById("f-link").value.trim();
+        try {
+          const departamento = document.getElementById("f-departamento").value;
+          const codigo = document.getElementById("f-codigo").value.trim();
+          const dia = document.getElementById("f-dia").value;
+          const mes = document.getElementById("f-mes").value;
+          const ano = document.getElementById("f-ano").value;
+          const titulo = document.getElementById("f-titulo").value.trim();
+          const resumo = document.getElementById("f-resumo").value.trim();
+          const link = document.getElementById("f-link").value.trim();
 
-        const data_publicacao = `${ano}-${MES_MAP[mes]}-${String(dia).padStart(2, "0")}`;
+          const data_publicacao = `${ano}-${MES_MAP[mes]}-${String(dia).padStart(2, "0")}`;
 
-        const res = await fetch(`${API_BASE}/api/procedimentos`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ departamento, codigo, data_publicacao, titulo, resumo, link })
-        });
+          if (!codigo || !titulo || !resumo || !link) {
+            alert("Preencha Código, Título, Resumo e Link.");
+            return;
+          }
 
-        if (!res.ok) {
-          const err = await res.json().catch(() => ({}));
-          alert(err.error || "Erro ao publicar.");
-          return;
+          const payload = { departamento, codigo, data_publicacao, titulo, resumo, link };
+
+          const res = await fetch(`${API_BASE}/api/procedimentos`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+
+          const text = await res.text(); // pega body mesmo se vier HTML de erro
+
+          if (!res.ok) {
+            alert(`Erro ao publicar (HTTP ${res.status}).\n\n${text.slice(0, 400)}`);
+            return;
+          }
+
+          limparForm();
+          await carregarTudo();
+          alert("Publicado!");
+        } catch (err) {
+          alert("Falha de rede/CORS ao chamar a API.\n\n" + (err?.message || err));
+          console.error(err);
         }
-
-        limparForm();
-        await carregarTudo();
       }
 
       async function deletarProcedimento(id) {
-        const ok = confirm("Excluir este procedimento?");
-        if (!ok) return;
+        try {
+          const ok = confirm("Excluir este procedimento?");
+          if (!ok) return;
 
-        const res = await fetch(`${API_BASE}/api/procedimentos/${id}`, { method: "DELETE" });
-        if (!res.ok) {
-          alert("Erro ao excluir.");
-          return;
+          const res = await fetch(`${API_BASE}/api/procedimentos/${id}`, { method: "DELETE" });
+          const text = await res.text();
+
+          if (!res.ok) {
+            alert(`Erro ao excluir (HTTP ${res.status}).\n\n${text.slice(0, 400)}`);
+            return;
+          }
+
+          await carregarTudo();
+        } catch (err) {
+          alert("Falha de rede/CORS ao excluir.\n\n" + (err?.message || err));
+          console.error(err);
         }
-        await carregarTudo();
       }
 
       // Eventos
