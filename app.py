@@ -1,3 +1,7 @@
+import os
+import sqlite3
+from flask import Flask, request, jsonify, send_file, abort
+
 ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD")
 
 def check_password(req):
@@ -5,11 +9,6 @@ def check_password(req):
     if not ADMIN_PASSWORD or sent != ADMIN_PASSWORD:
         return False
     return True
-
-
-import os
-import sqlite3
-from flask import Flask, request, jsonify, send_file, abort
 
 APP_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.environ.get("SQLITE_DB_PATH", os.path.join(APP_DIR, "database.db"))
