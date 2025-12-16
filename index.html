@@ -452,16 +452,36 @@
             <label class="inputLabel">Data de Publicação:</label>
             <div class="inputDateBar">
               <select id="f-dia" style="width: 100%">
-                <option value="1">1</option><option value="2">2</option><option value="3">3</option>
-                <option value="4">4</option><option value="5">5</option><option value="6">6</option>
-                <option value="7">7</option><option value="8">8</option><option value="9">9</option>
-                <option value="10">10</option><option value="11">11</option><option value="12">12</option>
-                <option value="13">13</option><option value="14">14</option><option value="15">15</option>
-                <option value="16">16</option><option value="17">17</option><option value="18">18</option>
-                <option value="19">19</option><option value="20">20</option><option value="21">21</option>
-                <option value="22">22</option><option value="23">23</option><option value="24">24</option>
-                <option value="25">25</option><option value="26">26</option><option value="27">27</option>
-                <option value="28">28</option><option value="29">29</option><option value="30">30</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+                <option value="24">24</option>
+                <option value="25">25</option>
+                <option value="26">26</option>
+                <option value="27">27</option>
+                <option value="28">28</option>
+                <option value="29">29</option>
+                <option value="30">30</option>
                 <option value="31">31</option>
               </select>
 
@@ -517,181 +537,201 @@
     </div>
 
     <script>
-      // IMPORTANTE: frontend está no GitHub Pages; backend/API está no Render
-      const API_BASE = "https://procedimentos-37ui.onrender.com";
+            // IMPORTANTE: frontend está no GitHub Pages; backend/API está no Render
+            const API_BASE = "https://procedimentos-37ui.onrender.com";
 
-      const MES_MAP = {
-        JAN: "01", FEV: "02", MAR: "03", ABR: "04", MAI: "05", JUN: "06",
-        JUL: "07", AGO: "08", SET: "09", OUT: "10", NOV: "11", DEZ: "12"
-      };
+            const MES_MAP = {
+              JAN: "01", FEV: "02", MAR: "03", ABR: "04", MAI: "05", JUN: "06",
+              JUL: "07", AGO: "08", SET: "09", OUT: "10", NOV: "11", DEZ: "12"
+            };
 
-      function formatDateBR(iso) {
-        const [y, m, d] = iso.split("-");
-        return `${d}/${m}/${y}`;
+            function formatDateBR(iso) {
+              const [y, m, d] = iso.split("-");
+              return `${d}/${m}/${y}`;
+            }
+
+            function escapeHtml(str) {
+              return String(str)
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;")
+                .replaceAll("'", "&#039;");
+            }
+
+            function cardProcedimento(p) {
+              const depto = escapeHtml(p.departamento);
+              const codigo = escapeHtml(p.codigo);
+              const titulo = escapeHtml(p.titulo);
+              const resumo = escapeHtml(p.resumo);
+              const link = escapeHtml(p.link);
+              const data = escapeHtml(formatDateBR(p.data_publicacao));
+
+              function pedirSenha() {
+        const senha = prompt("Digite a senha para confirmar:");
+        if (!senha) return null;
+        return senha;
       }
 
-      function escapeHtml(str) {
-        return String(str)
-          .replaceAll("&", "&amp;")
-          .replaceAll("<", "&lt;")
-          .replaceAll(">", "&gt;")
-          .replaceAll('"', "&quot;")
-          .replaceAll("'", "&#039;");
-      }
 
-      function cardProcedimento(p) {
-        const depto = escapeHtml(p.departamento);
-        const codigo = escapeHtml(p.codigo);
-        const titulo = escapeHtml(p.titulo);
-        const resumo = escapeHtml(p.resumo);
-        const link = escapeHtml(p.link);
-        const data = escapeHtml(formatDateBR(p.data_publicacao));
+              return `
+                <div class="boxProcedimento" style="background-color: var(--color${depto}2)">
+                  <div class="boxProcedimentoTitleBar">
+                    <div class="boxProcedimentoTitleBox">
+                      <div class="boxProcedimentoCode">${codigo}</div>
+                      <div class="boxProcedimentoDate">${data}</div>
+                    </div>
+                    <div class="boxProcedimentoDelete" data-del="${p.id}" title="Excluir">⨉</div>
+                  </div>
 
-        return `
-          <div class="boxProcedimento" style="background-color: var(--color${depto}2)">
-            <div class="boxProcedimentoTitleBar">
-              <div class="boxProcedimentoTitleBox">
-                <div class="boxProcedimentoCode">${codigo}</div>
-                <div class="boxProcedimentoDate">${data}</div>
-              </div>
-              <div class="boxProcedimentoDelete" data-del="${p.id}" title="Excluir">⨉</div>
-            </div>
+                  <div class="boxProcedimentoTitleBar">
+                    <div class="boxProcedimentoTitle">${titulo}</div>
+                  </div>
 
-            <div class="boxProcedimentoTitleBar">
-              <div class="boxProcedimentoTitle">${titulo}</div>
-            </div>
+                  <div class="boxProcedimentoResumo">${resumo}</div>
 
-            <div class="boxProcedimentoResumo">${resumo}</div>
+                  <a
+                    href="${link}"
+                    class="botao"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style="background-color: var(--color${depto}1)"
+                  >Ver Procedimento</a>
+                </div>
+              `;
+            }
 
-            <a
-              href="${link}"
-              class="botao"
-              target="_blank"
-              rel="noopener noreferrer"
-              style="background-color: var(--color${depto}1)"
-            >Ver Procedimento</a>
-          </div>
-        `;
-      }
+            async function carregarTudo() {
+              try {
+                const res = await fetch(`${API_BASE}/api/procedimentos`);
+                const text = await res.text();
 
-      async function carregarTudo() {
-        try {
-          const res = await fetch(`${API_BASE}/api/procedimentos`);
-          const text = await res.text();
+                if (!res.ok) {
+                  alert(`Erro ao carregar lista (HTTP ${res.status}).\n\n${text.slice(0, 400)}`);
+                  return;
+                }
 
-          if (!res.ok) {
-            alert(`Erro ao carregar lista (HTTP ${res.status}).\n\n${text.slice(0, 400)}`);
-            return;
-          }
+                const lista = JSON.parse(text);
 
-          const lista = JSON.parse(text);
+                ["FIN","RHU","JUR","INC","COM","MKT","ENG","SAC"].forEach(d => {
+                  const el = document.getElementById(`lista-${d}`);
+                  if (el) el.innerHTML = "";
+                });
 
-          ["FIN","RHU","JUR","INC","COM","MKT","ENG","SAC"].forEach(d => {
-            const el = document.getElementById(`lista-${d}`);
-            if (el) el.innerHTML = "";
-          });
+                for (const p of lista) {
+                  const alvo = document.getElementById(`lista-${p.departamento}`);
+                  if (!alvo) continue;
 
-          for (const p of lista) {
-            const alvo = document.getElementById(`lista-${p.departamento}`);
-            if (!alvo) continue;
+                  const wrap = document.createElement("div");
+                  wrap.className = "container";
+                  wrap.innerHTML = cardProcedimento(p);
+                  alvo.appendChild(wrap);
+                }
+              } catch (err) {
+                alert("Falha de rede/CORS ao carregar lista.\n\n" + (err?.message || err));
+                console.error(err);
+              }
+            }
 
-            const wrap = document.createElement("div");
-            wrap.className = "container";
-            wrap.innerHTML = cardProcedimento(p);
-            alvo.appendChild(wrap);
-          }
-        } catch (err) {
-          alert("Falha de rede/CORS ao carregar lista.\n\n" + (err?.message || err));
-          console.error(err);
-        }
-      }
+            function limparForm() {
+              document.getElementById("f-codigo").value = "";
+              document.getElementById("f-titulo").value = "";
+              document.getElementById("f-resumo").value = "";
+              document.getElementById("f-link").value = "";
+            }
 
-      function limparForm() {
-        document.getElementById("f-codigo").value = "";
-        document.getElementById("f-titulo").value = "";
-        document.getElementById("f-resumo").value = "";
-        document.getElementById("f-link").value = "";
-      }
+            async function criarProcedimento() {
+              try {
+                const departamento = document.getElementById("f-departamento").value;
+                const codigo = document.getElementById("f-codigo").value.trim();
+                const dia = document.getElementById("f-dia").value;
+                const mes = document.getElementById("f-mes").value;
+                const ano = document.getElementById("f-ano").value;
+                const titulo = document.getElementById("f-titulo").value.trim();
+                const resumo = document.getElementById("f-resumo").value.trim();
+                const link = document.getElementById("f-link").value.trim();
 
-      async function criarProcedimento() {
-        try {
-          const departamento = document.getElementById("f-departamento").value;
-          const codigo = document.getElementById("f-codigo").value.trim();
-          const dia = document.getElementById("f-dia").value;
-          const mes = document.getElementById("f-mes").value;
-          const ano = document.getElementById("f-ano").value;
-          const titulo = document.getElementById("f-titulo").value.trim();
-          const resumo = document.getElementById("f-resumo").value.trim();
-          const link = document.getElementById("f-link").value.trim();
+                const data_publicacao = `${ano}-${MES_MAP[mes]}-${String(dia).padStart(2, "0")}`;
 
-          const data_publicacao = `${ano}-${MES_MAP[mes]}-${String(dia).padStart(2, "0")}`;
+                if (!codigo || !titulo || !resumo || !link) {
+                  alert("Preencha Código, Título, Resumo e Link.");
+                  return;
+                }
 
-          if (!codigo || !titulo || !resumo || !link) {
-            alert("Preencha Código, Título, Resumo e Link.");
-            return;
-          }
+                const payload = { departamento, codigo, data_publicacao, titulo, resumo, link };
 
-          const payload = { departamento, codigo, data_publicacao, titulo, resumo, link };
+                const senha = pedirSenha();
+      if (!senha) return;
 
-          const res = await fetch(`${API_BASE}/api/procedimentos`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload)
-          });
 
-          const text = await res.text(); // pega body mesmo se vier HTML de erro
+                const res = await fetch(`${API_BASE}/api/procedimentos`, {
+                  method: "POST",
+                  headers: { headers: {
+        "Content-Type": "application/json",
+        "X-Admin-Password": senha
+      },
+       },
+                  body: JSON.stringify(payload)
+                });
 
-          if (!res.ok) {
-            alert(`Erro ao publicar (HTTP ${res.status}).\n\n${text.slice(0, 400)}`);
-            return;
-          }
+                const text = await res.text(); // pega body mesmo se vier HTML de erro
 
-          limparForm();
-          await carregarTudo();
-          alert("Publicado!");
-        } catch (err) {
-          alert("Falha de rede/CORS ao chamar a API.\n\n" + (err?.message || err));
-          console.error(err);
-        }
-      }
+                if (!res.ok) {
+                  alert(`Erro ao publicar (HTTP ${res.status}).\n\n${text.slice(0, 400)}`);
+                  return;
+                }
 
-      async function deletarProcedimento(id) {
-        try {
-          const ok = confirm("Excluir este procedimento?");
-          if (!ok) return;
+                limparForm();
+                await carregarTudo();
+                alert("Publicado!");
+              } catch (err) {
+                alert("Falha de rede/CORS ao chamar a API.\n\n" + (err?.message || err));
+                console.error(err);
+              }
+            }
 
-          const res = await fetch(`${API_BASE}/api/procedimentos/${id}`, { method: "DELETE" });
-          const text = await res.text();
+            async function deletarProcedimento(id) {
+              try {
+                const ok = confirm("Excluir este procedimento?");
+                if (!ok) return;
 
-          if (!res.ok) {
-            alert(`Erro ao excluir (HTTP ${res.status}).\n\n${text.slice(0, 400)}`);
-            return;
-          }
+                const senha = pedirSenha();
+      if (!senha) return;
 
-          await carregarTudo();
-        } catch (err) {
-          alert("Falha de rede/CORS ao excluir.\n\n" + (err?.message || err));
-          console.error(err);
-        }
-      }
 
-      // Eventos
-      document.addEventListener("click", (e) => {
-        const del = e.target?.getAttribute?.("data-del");
-        if (del) deletarProcedimento(del);
-      });
+                const res = await fetch(`${API_BASE}/api/procedimentos/${id}`, { method: "DELETE", headers: {
+          "X-Admin-Password": senha });
+                const text = await res.text();
 
-      document.getElementById("btn-publicar")?.addEventListener("click", (e) => {
-        e.preventDefault();
-        criarProcedimento();
-      });
+                if (!res.ok) {
+                  alert(`Erro ao excluir (HTTP ${res.status}).\n\n${text.slice(0, 400)}`);
+                  return;
+                }
 
-      document.getElementById("btn-cancelar")?.addEventListener("click", (e) => {
-        e.preventDefault();
-        limparForm();
-      });
+                await carregarTudo();
+              } catch (err) {
+                alert("Falha de rede/CORS ao excluir.\n\n" + (err?.message || err));
+                console.error(err);
+              }
+            }
 
-      carregarTudo();
+            // Eventos
+            document.addEventListener("click", (e) => {
+              const del = e.target?.getAttribute?.("data-del");
+              if (del) deletarProcedimento(del);
+            });
+
+            document.getElementById("btn-publicar")?.addEventListener("click", (e) => {
+              e.preventDefault();
+              criarProcedimento();
+            });
+
+            document.getElementById("btn-cancelar")?.addEventListener("click", (e) => {
+              e.preventDefault();
+              limparForm();
+            });
+
+            carregarTudo();
     </script>
   </body>
 </html>

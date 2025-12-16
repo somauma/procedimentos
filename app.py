@@ -1,3 +1,12 @@
+ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD")
+
+def check_password(req):
+    sent = req.headers.get("X-Admin-Password")
+    if not ADMIN_PASSWORD or sent != ADMIN_PASSWORD:
+        return False
+    return True
+
+
 import os
 import sqlite3
 from flask import Flask, request, jsonify, send_file, abort
@@ -92,6 +101,9 @@ def listar_procedimentos():
 
 @app.route("/api/procedimentos", methods=["POST"])
 def criar_procedimento():
+    if not check_password(request):
+        return jsonify({"error": "Senha inválida."}), 401
+    
     data = request.get_json(silent=True) or {}
 
     departamento = (data.get("departamento") or "").strip()
@@ -140,6 +152,9 @@ def criar_procedimento():
 
 @app.route("/api/procedimentos/<int:proc_id>", methods=["DELETE"])
 def deletar_procedimento(proc_id: int):
+     if not check_password(request):
+        return jsonify({"error": "Senha inválida."}), 401
+    
     conn = get_db()
     cur = conn.execute("delete from procedimentos where id = ?", (proc_id,))
     conn.commit()
