@@ -536,56 +536,56 @@
       <!-- FIM DA PÁGINA -->
     </div>
 
-<script>
-  // FRONT no GitHub Pages / BACK no Render
-  const API_BASE = "https://procedimentos-37ui.onrender.com";
+    <script>
+      // FRONT no GitHub Pages / BACK no Render
+      const API_BASE = "https://procedimentos-37ui.onrender.com";
 
-  const MES_MAP = {
-    JAN: "01",
-    FEV: "02",
-    MAR: "03",
-    ABR: "04",
-    MAI: "05",
-    JUN: "06",
-    JUL: "07",
-    AGO: "08",
-    SET: "09",
-    OUT: "10",
-    NOV: "11",
-    DEZ: "12",
-  };
+      const MES_MAP = {
+        JAN: "01",
+        FEV: "02",
+        MAR: "03",
+        ABR: "04",
+        MAI: "05",
+        JUN: "06",
+        JUL: "07",
+        AGO: "08",
+        SET: "09",
+        OUT: "10",
+        NOV: "11",
+        DEZ: "12"
+      };
 
-  function pedirSenha() {
-    const senha = prompt("Digite a senha para confirmar:");
-    if (!senha) return null;
-    return senha;
-  }
+      function pedirSenha() {
+        const senha = prompt("Digite a senha para confirmar:");
+        if (!senha) return null;
+        return senha;
+      }
 
-  function formatDateBR(iso) {
-    // iso: YYYY-MM-DD
-    const parts = String(iso || "").split("-");
-    if (parts.length !== 3) return String(iso || "");
-    return `${parts[2]}/${parts[1]}/${parts[0]}`;
-  }
+      function formatDateBR(iso) {
+        // iso: YYYY-MM-DD
+        const parts = String(iso || "").split("-");
+        if (parts.length !== 3) return String(iso || "");
+        return `${parts[2]}/${parts[1]}/${parts[0]}`;
+      }
 
-  function escapeHtml(str) {
-    return String(str ?? "")
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
-  }
+      function escapeHtml(str) {
+        return String(str ?? "")
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
 
-  function cardProcedimento(p) {
-    const depto = escapeHtml(p.departamento);
-    const codigo = escapeHtml(p.codigo);
-    const titulo = escapeHtml(p.titulo);
-    const resumo = escapeHtml(p.resumo);
-    const link = escapeHtml(p.link);
-    const data = escapeHtml(formatDateBR(p.data_publicacao));
+      function cardProcedimento(p) {
+        const depto = escapeHtml(p.departamento);
+        const codigo = escapeHtml(p.codigo);
+        const titulo = escapeHtml(p.titulo);
+        const resumo = escapeHtml(p.resumo);
+        const link = escapeHtml(p.link);
+        const data = escapeHtml(formatDateBR(p.data_publicacao));
 
-    return `
+        return `
       <div class="boxProcedimento" style="background-color: var(--color${depto}2)">
         <div class="boxProcedimentoTitleBar">
           <div class="boxProcedimentoTitleBox">
@@ -610,154 +610,160 @@
         >Ver Procedimento</a>
       </div>
     `;
-  }
-
-  async function carregarTudo() {
-    try {
-      const res = await fetch(`${API_BASE}/api/procedimentos`, { method: "GET" });
-      const text = await res.text();
-
-      if (!res.ok) {
-        alert(`Erro ao carregar lista (HTTP ${res.status}).\n\n${text.slice(0, 400)}`);
-        return;
       }
 
-      const lista = JSON.parse(text);
+      async function carregarTudo() {
+        try {
+          const res = await fetch(`${API_BASE}/api/procedimentos`, { method: "GET" });
+          const text = await res.text();
 
-      const deptos = ["FIN", "RHU", "JUR", "INC", "COM", "MKT", "ENG", "SAC"];
-      for (const d of deptos) {
-        const el = document.getElementById(`lista-${d}`);
-        if (el) el.innerHTML = "";
+          if (!res.ok) {
+            alert(`Erro ao carregar lista (HTTP ${res.status}).\n\n${text.slice(0, 400)}`);
+            return;
+          }
+
+          const lista = JSON.parse(text);
+
+          const deptos = ["FIN", "RHU", "JUR", "INC", "COM", "MKT", "ENG", "SAC"];
+          for (const d of deptos) {
+            const el = document.getElementById(`lista-${d}`);
+            if (el) el.innerHTML = "";
+          }
+
+          for (const p of lista) {
+            const alvo = document.getElementById(`lista-${p.departamento}`);
+            if (!alvo) continue;
+
+            const wrap = document.createElement("div");
+            wrap.className = "container";
+            wrap.innerHTML = cardProcedimento(p);
+            alvo.appendChild(wrap);
+          }
+        } catch (err) {
+          alert("Falha ao carregar (rede/CORS/JSON).\n\n" + (err?.message || err));
+          console.error(err);
+        }
       }
 
-      for (const p of lista) {
-        const alvo = document.getElementById(`lista-${p.departamento}`);
-        if (!alvo) continue;
-
-        const wrap = document.createElement("div");
-        wrap.className = "container";
-        wrap.innerHTML = cardProcedimento(p);
-        alvo.appendChild(wrap);
-      }
-    } catch (err) {
-      alert("Falha ao carregar (rede/CORS/JSON).\n\n" + (err?.message || err));
-      console.error(err);
-    }
-  }
-
-  function limparForm() {
-    document.getElementById("f-codigo").value = "";
-    document.getElementById("f-titulo").value = "";
-    document.getElementById("f-resumo").value = "";
-    document.getElementById("f-link").value = "";
-  }
-
-  async function criarProcedimento() {
-    try {
-      const departamento = document.getElementById("f-departamento").value;
-      const codigo = document.getElementById("f-codigo").value.trim();
-      const dia = document.getElementById("f-dia").value;
-      const mes = document.getElementById("f-mes").value;
-      const ano = document.getElementById("f-ano").value;
-      const titulo = document.getElementById("f-titulo").value.trim();
-      const resumo = document.getElementById("f-resumo").value.trim();
-      const link = document.getElementById("f-link").value.trim();
-
-      const data_publicacao = `${ano}-${MES_MAP[mes]}-${String(dia).padStart(2, "0")}`;
-
-      if (!codigo || !titulo || !resumo || !link) {
-        alert("Preencha Código, Título, Resumo e Link.");
-        return;
+      function limparForm() {
+        document.getElementById("f-codigo").value = "";
+        document.getElementById("f-titulo").value = "";
+        document.getElementById("f-resumo").value = "";
+        document.getElementById("f-link").value = "";
       }
 
-      const senha = pedirSenha();
-      if (!senha) return;
+      async function criarProcedimento() {
+        try {
+          const departamento = document.getElementById("f-departamento").value;
+          const codigo = document.getElementById("f-codigo").value.trim();
+          const dia = document.getElementById("f-dia").value;
+          const mes = document.getElementById("f-mes").value;
+          const ano = document.getElementById("f-ano").value;
+          const titulo = document.getElementById("f-titulo").value.trim();
+          const resumo = document.getElementById("f-resumo").value.trim();
+          const link = document.getElementById("f-link").value.trim();
 
-      const payload = { departamento, codigo, data_publicacao, titulo, resumo, link };
+          const data_publicacao = `${ano}-${MES_MAP[mes]}-${String(dia).padStart(2, "0")}`;
 
-      const res = await fetch(`${API_BASE}/api/procedimentos`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Admin-Password": senha,
-        },
-        body: JSON.stringify(payload),
+          if (!codigo || !titulo || !resumo || !link) {
+            alert("Preencha Código, Título, Resumo e Link.");
+            return;
+          }
+
+          const senha = pedirSenha();
+          if (!senha) return;
+
+          const payload = { departamento, codigo, data_publicacao, titulo, resumo, link };
+
+          const res = await fetch(`${API_BASE}/api/procedimentos`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-Admin-Password": senha
+            },
+            body: JSON.stringify(payload)
+          });
+
+          const text = await res.text();
+
+          if (!res.ok) {
+            if (res.status === 401) {
+              alert("Senha incorreta. Tente de novo.");
+            } else {
+              alert(`Erro ao publicar.\n\n${text.slice(0, 400)}`);
+            }
+            return;
+          }
+
+          limparForm();
+          await carregarTudo();
+          alert("Publicado!");
+        } catch (err) {
+          alert("Falha ao publicar (rede/CORS).\n\n" + (err?.message || err));
+          console.error(err);
+        }
+      }
+
+      async function deletarProcedimento(id) {
+        try {
+          const ok = confirm("Excluir este procedimento?");
+          if (!ok) return;
+
+          const senha = pedirSenha();
+          if (!senha) return;
+
+          const res = await fetch(`${API_BASE}/api/procedimentos/${id}`, {
+            method: "DELETE",
+            headers: {
+              "X-Admin-Password": senha
+            }
+          });
+
+          const text = await res.text();
+
+          if (!res.ok) {
+            if (res.status === 401) {
+              alert("Senha incorreta. Tente de novo.");
+            } else {
+              alert(`Erro ao excluir.\n\n${text.slice(0, 400)}`);
+            }
+            return;
+          }
+
+          await carregarTudo();
+        } catch (err) {
+          alert("Falha ao excluir (rede/CORS).\n\n" + (err?.message || err));
+          console.error(err);
+        }
+      }
+
+      // Handlers
+      document.addEventListener("click", function (e) {
+        const target = e.target;
+        if (!target) return;
+
+        const delId = target.getAttribute && target.getAttribute("data-del");
+        if (delId) deletarProcedimento(delId);
       });
 
-      const text = await res.text();
-
-      if (!res.ok) {
-        alert(`Erro ao publicar (HTTP ${res.status}).\n\n${text.slice(0, 400)}`);
-        return;
+      const btnPublicar = document.getElementById("btn-publicar");
+      if (btnPublicar) {
+        btnPublicar.addEventListener("click", function (e) {
+          e.preventDefault();
+          criarProcedimento();
+        });
       }
 
-      limparForm();
-      await carregarTudo();
-      alert("Publicado!");
-    } catch (err) {
-      alert("Falha ao publicar (rede/CORS).\n\n" + (err?.message || err));
-      console.error(err);
-    }
-  }
-
-  async function deletarProcedimento(id) {
-    try {
-      const ok = confirm("Excluir este procedimento?");
-      if (!ok) return;
-
-      const senha = pedirSenha();
-      if (!senha) return;
-
-      const res = await fetch(`${API_BASE}/api/procedimentos/${id}`, {
-        method: "DELETE",
-        headers: {
-          "X-Admin-Password": senha,
-        },
-      });
-
-      const text = await res.text();
-
-      if (!res.ok) {
-        alert(`Erro ao excluir (HTTP ${res.status}).\n\n${text.slice(0, 400)}`);
-        return;
+      const btnCancelar = document.getElementById("btn-cancelar");
+      if (btnCancelar) {
+        btnCancelar.addEventListener("click", function (e) {
+          e.preventDefault();
+          limparForm();
+        });
       }
 
-      await carregarTudo();
-    } catch (err) {
-      alert("Falha ao excluir (rede/CORS).\n\n" + (err?.message || err));
-      console.error(err);
-    }
-  }
-
-  // Handlers
-  document.addEventListener("click", function (e) {
-    const target = e.target;
-    if (!target) return;
-
-    const delId = target.getAttribute && target.getAttribute("data-del");
-    if (delId) deletarProcedimento(delId);
-  });
-
-  const btnPublicar = document.getElementById("btn-publicar");
-  if (btnPublicar) {
-    btnPublicar.addEventListener("click", function (e) {
-      e.preventDefault();
-      criarProcedimento();
-    });
-  }
-
-  const btnCancelar = document.getElementById("btn-cancelar");
-  if (btnCancelar) {
-    btnCancelar.addEventListener("click", function (e) {
-      e.preventDefault();
-      limparForm();
-    });
-  }
-
-  // Inicial
-  carregarTudo();
-</script>
-
-    
+      // Inicial
+      carregarTudo();
+    </script>
   </body>
 </html>
